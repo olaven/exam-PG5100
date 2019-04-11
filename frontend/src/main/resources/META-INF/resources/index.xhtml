@@ -1,0 +1,35 @@
+<ui:composition template="layout.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags">
+
+    <!--
+     NOTE: This file is copied and adapted from:
+     * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/14f9b4274a9335c41cfe958833e32ee6bc01737c/intro/spring/security/authorization/src/main/resources/META-INF/resources/index.xhtml
+    -->
+    <ui:define name="title">Welcome</ui:define>
+    <ui:define name="content">
+
+        <sec:authenticated>
+
+            <h2>Hello</h2>
+
+            <h:form prependId="false">
+                <h:commandButton
+                        value="go to placeholder-page"
+                        action="#{placeholderController.goToPlaceHolderPage}"
+                        id="goToCounterPageButton"
+                        class="btn btn-primary"/>
+            </h:form>
+
+        </sec:authenticated>
+
+        <sec:anonymous>
+            <p>You must log in</p>
+        </sec:anonymous>
+
+
+    </ui:define>
+
+</ui:composition>
+

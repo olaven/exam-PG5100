@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
+>
+<!--
+    Common layout for all pages
+-->
+
+
+    <h:head>
+        <link rel="stylesheet" href="assets/bootstrap.min.css"/>
+        <title>
+            <ui:insert name="title">Default title</ui:insert>
+        </title>
+    </h:head>
+
+
+    <h:body>
+        <h1>My web application</h1>
+
+        <sec:anonymous>
+            <div class="navbar navbar-expand-lg">
+                <h:button id="loginBtnId" outcome="/login.jsf" value="Log In" class="btn btn-dark"/>
+                <h:button id="signupBtnId" outcome="/signup.jsf" value="Sign Up" class="btn btn-dark"/>
+            </div>
+        </sec:anonymous>
+
+        <hr/>
+
+        <ui:insert name="content">Default content</ui:insert>
+
+        <div class="fixed-bottom">
+            <sec:authenticated>
+                <form action="/logout" class="form">
+                    <input value="Log out" type="submit" id="logoutBtnId" class="btn btn-secondary"/>
+                </form>
+
+                <div>Thanks for using my web application, <h:outputText value="#{userInfoController.userName}"/>.</div>
+            </sec:authenticated>
+            <sec:anonymous>
+                <div>Thanks for using my web application, you great person</div>
+            </sec:anonymous>
+        </div>
+    </h:body>
+</html>

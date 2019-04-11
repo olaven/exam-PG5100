@@ -1,0 +1,16 @@
+# This file is copied from
+# * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/spring/deployment/src/main/resources/application.yml
+
+jsf:
+  projectStage: Production
+
+# Note: no need to specify URL of database, as Heroku will
+# automatically set environmental variables used by Spring
+
+spring:
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: "validate"

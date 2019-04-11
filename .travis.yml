@@ -1,0 +1,26 @@
+language: java
+
+jdk:
+- oraclejdk8
+
+
+
+# This is needed in Travis when using Docker
+sudo: true
+
+# Specify we need Docker for our build
+services:
+- docker
+
+
+# As the build will download JAR files from Maven Central, optimize their storage,
+# so they do not get re-downloaded each time
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+
+notifications:
+  email: true
+
+script: mvn clean verify
