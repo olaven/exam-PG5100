@@ -1,5 +1,6 @@
 package kristiania.enterprise.exam.backend.services;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import kristiania.enterprise.exam.backend.ResetService;
 import kristiania.enterprise.exam.backend.StubApplication;
 import kristiania.enterprise.exam.backend.entity.PlaceholderEntity;
@@ -39,18 +40,6 @@ class PlaceholderServiceTest {
 
         long count = repository.count();
         assertEquals(count, 0);
-    }
-
-    @Test
-    public void canIncrement() {
-
-        PlaceholderEntity entityBefore = repository.save(getValidEntity());
-        Integer counterBefore = entityBefore.getCounter();
-        service.increment(entityBefore.getId());
-
-        PlaceholderEntity entityAfter = repository.findById(entityBefore.getId()).get();
-
-        assertEquals(counterBefore, entityAfter.getCounter());
     }
 
     @Test

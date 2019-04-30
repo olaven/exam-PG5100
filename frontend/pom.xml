@@ -22,19 +22,8 @@
 
         <!-- spring / related -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.joinfaces</groupId>
             <artifactId>jsf-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -88,11 +77,6 @@
             <artifactId>selenium</artifactId>
         </dependency>
 
-        <!-- database -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
     </dependencies>
 
 
@@ -107,37 +91,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${version.springboot}</version>
-                <configuration>
-                    <finalName>frontend</finalName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>exec</classifier>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
-                <version>${version.heroku}</version>
-                <configuration>
-                    <appName>enterprise-exam</appName>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>target/frontend-exec.jar</include>
-                    </includes>
-                    <processTypes>
-                        <web>java -Dserver.port=$PORT -jar target/frontend-exec.jar</web>
-                    </processTypes>
-                </configuration>
             </plugin>
+
         </plugins>
     </build>
 
