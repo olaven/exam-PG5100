@@ -3,6 +3,7 @@ package kristiania.enterprise.exam.frontend.selenium;
 
 
 import kristiania.enterprise.exam.Application;
+import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +31,6 @@ NOTE: This file is copied from:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumDockerIT.java
 */
 
-@ActiveProfiles("docker")
 @ContextConfiguration(initializers = SeleniumDockerIT.DockerInitializer.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
