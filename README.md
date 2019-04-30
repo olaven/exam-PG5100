@@ -10,3 +10,4 @@
 
 ## Notes 
 To deploy new version: "mvn clean package heroku:deploy -Dheroku.logProgress=true"
+To check dependencies: "mvn verify -P dependency-check"

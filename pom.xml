@@ -37,6 +37,7 @@
         <version.testcontainers>1.10.1</version.testcontainers>
         <version.selenium>3.141.59</version.selenium>
         <version.jacoco>0.7.9</version.jacoco>
+        <version.owasp>3.1.1</version.owasp>
         <!--<version.junit.surefire.provider>1.2.0-M1</version.junit.surefire.provider>-->
     </properties>
 
@@ -337,6 +338,20 @@
                             <web>java -Dserver.port=$PORT -jar target/frontend-exec.jar</web>
                         </processTypes>
                     </configuration>
+                </plugin>
+
+
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>${version.owasp}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
 
