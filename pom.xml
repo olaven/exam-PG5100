@@ -309,35 +309,12 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.springboot}</version>
-                    <configuration>
-                        <finalName>frontend</finalName>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                            <configuration>
-                                <classifier>exec</classifier>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <plugin>
                     <groupId>com.heroku.sdk</groupId>
                     <artifactId>heroku-maven-plugin</artifactId>
                     <version>${version.heroku}</version>
-                    <configuration>
-                        <appName>enterprise-exam</appName>
-                        <includeTarget>false</includeTarget>
-                        <includes>
-                            <include>frontend/target/frontend-exec.jar</include>
-                        </includes>
-                        <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/frontend-exec.jar</web>
-                        </processTypes>
-                    </configuration>
                 </plugin>
 
 

@@ -3,7 +3,6 @@ package kristiania.enterprise.exam.frontend.selenium;
 
 
 import kristiania.enterprise.exam.Application;
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -36,7 +34,7 @@ NOTE: This file is copied from:
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class SeleniumDockerIT extends SeleniumTestBase {
 
-    private static String QUIZ_HOST_ALIAS = "exam-host";
+    private static String EXAM_HOST_ALIAS = "exam-host";
     private static String PG_ALIAS = "postgresql-host";
 
     public static Network network = Network.newNetwork();
@@ -74,7 +72,7 @@ public class SeleniumDockerIT extends SeleniumTestBase {
                     .withFileFromPath("Dockerfile", Paths.get("Dockerfile")))
             .withExposedPorts(8080)
             .withNetwork(network)
-            .withNetworkAliases(QUIZ_HOST_ALIAS)
+            .withNetworkAliases(EXAM_HOST_ALIAS)
             .waitingFor(Wait.forHttp("/"))
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("FRONTEND")));
 
@@ -108,7 +106,7 @@ public class SeleniumDockerIT extends SeleniumTestBase {
 
     @Override
     protected String getServerHost() {
-        return QUIZ_HOST_ALIAS;
+        return EXAM_HOST_ALIAS;
     }
 
     @Override

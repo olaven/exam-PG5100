@@ -129,18 +129,4 @@ public abstract class SeleniumTestBase {
         assertEquals(before - 1, after);
     }
 
-    @Test
-    public void canIncrement() {
-
-        goToPlaceholderPage();
-
-        placeholderPO.addNew();
-
-        int before = placeholderPO.getCounterOf(0);
-        placeholderPO.increment(0);
-        int after = placeholderPO.getCounterOf(0);
-
-        assertEquals(before + 1, after);
-    }
-
 }

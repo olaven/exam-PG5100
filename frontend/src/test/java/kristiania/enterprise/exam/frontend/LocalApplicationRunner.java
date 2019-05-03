@@ -1,7 +1,6 @@
 package kristiania.enterprise.exam.frontend;
 
 import kristiania.enterprise.exam.Application;
-import kristiania.enterprise.exam.backend.services.UserService;
 import org.springframework.boot.SpringApplication;
 
 class LocalApplicationRunner {
