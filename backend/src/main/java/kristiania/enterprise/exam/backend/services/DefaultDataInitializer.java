@@ -23,10 +23,17 @@ public class DefaultDataInitializer {
 
 
     private void insertDefaultUsers() {
-
-        attempt(() -> userService.createUser("dev", "dev"));
-        attempt(() -> userService.createUser("Test user 1", "test1"));
-        attempt(() -> userService.createUser("Test user 2", "test2"));
+        
+        // USERS
+        attempt(() -> userService.createUser("dev@mail.com", "dev-given", "dev-family", "dev"));
+        attempt(() -> userService.createUser("none@booked.com", "givennothing", "familynothing", "dev"));
+        attempt(() -> userService.createUser("iron@man.com", "Tony", "Stark", "suit"));
+        attempt(() -> userService.createUser("spider@man.com", "Peter", "Parker", "nyc"));
+        attempt(() -> userService.createUser("black@widow.com", "Scarlet", "Johanson", "secret"));
+        attempt(() -> userService.createUser("thor@valhal.com", "Thor", "Odins Son", "rainbowroad"));
+        attempt(() -> userService.createUser("hulk@green.com", "Robert", "Banner", "sumo-goblin"));
+        attempt(() -> userService.createUser("captain@america.com", "Steven", "Rogers", "Betsy Ross"));
+        attempt(() -> userService.createUser("hawk@eye.com", "Clinton", "Barton", "arrow-to-the-knee"));
     }
 
     private<T> T attempt(Supplier<T> lambda){

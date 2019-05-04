@@ -27,16 +27,18 @@ public class UserService {
     @Autowired
     private EntityManager entityManager;
 
-    public boolean createUser(String username, String password) {
+    public boolean createUser(String email, String givenName, String familyName, String password) {
 
         String hashedPassword = passwordEncoder.encode(password);
 
-        if (entityManager.find(UserEntity.class, username) != null) {
+        if (entityManager.find(UserEntity.class, email) != null) {
             return false;
         }
 
         UserEntity user = new UserEntity();
-        user.setUsername(username);
+        user.setEmail(email);
+        user.setGivenName(givenName);
+        user.setFamilyName(familyName);
         user.setPassword(hashedPassword);
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);

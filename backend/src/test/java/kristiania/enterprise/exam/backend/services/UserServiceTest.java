@@ -25,17 +25,25 @@ public class UserServiceTest {
         Note: by using unique ids here, I do not need to care about
         cleaning the database at each test
      */
-    private String getUniqueId(){
-        return "foo_UserServiceTest_" + counter.getAndIncrement();
+    protected String getUniqueEmail(){
+        return "foo_UserServiceTest_" + counter.getAndIncrement() + "@test.com";
+    }
+
+    private boolean createTestUser() {
+
+        String email = getUniqueEmail();
+        String givenName = "test given";
+        String familyName = "test family";
+        String password = "password";
+
+        boolean created = userService.createUser(email, givenName, familyName, password);
+        return created;
     }
 
     @Test
     public void testCanCreateAUser(){
 
-        String user = getUniqueId();
-        String password = "password";
-
-        boolean created = userService.createUser(user,password);
+        boolean created = createTestUser();
         assertTrue(created);
     }
 
@@ -43,12 +51,13 @@ public class UserServiceTest {
     @Test
     public void testNoTwoUsersWithSameId(){
 
-        String user = getUniqueId();
+        String email = getUniqueEmail();
 
-        boolean created = userService.createUser(user,"a");
+        boolean created = userService.createUser(email,"ag", "af", "ap");
+
         assertTrue(created);
 
-        created = userService.createUser(user,"b");
+        created = userService.createUser(email,"bg", "bf", "bp");
         assertFalse(created);
     }
 

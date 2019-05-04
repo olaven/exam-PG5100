@@ -10,7 +10,7 @@ spring:
       # check if your current Entities do match what in the
       # current existing schema (which would be created by
       # Flyway here the first time the migration is run)
-      ddl-auto: validate
+      ddl-auto: create-drop #validate
     database: h2
     show-sql: true
 
