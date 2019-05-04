@@ -1,6 +1,5 @@
 package kristiania.enterprise.exam.backend.services;
 
-import kristiania.enterprise.exam.backend.entity.PlaceholderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -14,38 +13,12 @@ public class DefaultDataInitializer {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private PlaceholderService placeholderService;
 
     @PostConstruct
     @Profile("test")
     public void initialize() {
 
         insertDefaultUsers();
-        insertDefaultPlaceholder();
-    }
-
-    private void insertDefaultPlaceholder() {
-
-        PlaceholderEntity first = attempt(() -> placeholderService.createNew());
-        PlaceholderEntity second = attempt(() -> placeholderService.createNew());
-        PlaceholderEntity third = attempt(() -> placeholderService.createNew());
-
-        incrementToSomeValue(first);
-        incrementToSomeValue(second);
-        incrementToSomeValue(third);
-
-    }
-
-    private void incrementToSomeValue(PlaceholderEntity placeholderEntity) {
-
-        if (placeholderEntity != null) {
-
-            int counter = new Random().nextInt(10);
-            for (int i = 0; i < counter; i++) {
-                placeholderService.increment(placeholderEntity.getId());
-            }
-        }
     }
 
 

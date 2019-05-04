@@ -29,21 +29,4 @@ public class IndexPO extends LayoutPO {
     public boolean isOnPage() {
         return getDriver().getTitle().contains("Welcome");
     }
-
-    public boolean buttonToPlaceholderVisible() {
-
-        try {
-            return getDriver()
-                    .findElement(By.xpath("//input[@id='goToCounterPageButton']"))
-                    .isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public void goToPlaceholderPage() {
-
-        clickAndWait("goToCounterPageButton");
-    }
-
 }
