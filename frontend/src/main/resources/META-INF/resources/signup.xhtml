@@ -1,5 +1,5 @@
 <!--
- NOTE: This file is copied from:
+ NOTE: This file is a adapted from:
  *https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/14f9b4274a9335c41cfe958833e32ee6bc01737c/intro/spring/security/authorization/src/main/resources/META-INF/resources/signup.xhtml
 -->
 <ui:composition
@@ -16,8 +16,12 @@
                            rendered="${!empty param['error']}"/>
 
             <h:panelGrid columns="2" layout="grid">
-                <h:outputText value="username"/>
-                <h:inputText id="usernameTextId" value="#{signUpController.username}"/>
+                <h:outputText value="email"/>
+                <h:inputText id="emailTextId" value="#{signUpController.email}"/>
+                <h:outputText value="First name:"/>
+                <h:inputText id="givenNameTextId" value="#{signUpController.givenName}"/>
+                <h:outputText value="Last name:"/>
+                <h:inputText id="familyNameTextId" value="#{signUpController.familyName}"/>
                 <h:outputText value="password"/>
                 <h:inputSecret id="passwordTextId" value="#{signUpController.password}"/>
             </h:panelGrid>
