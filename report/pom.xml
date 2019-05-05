@@ -18,7 +18,6 @@
     <artifactId>report</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>kristiania.enterprise</groupId>
             <artifactId>frontend</artifactId>
@@ -34,7 +33,7 @@
     <!--
       This can be very expensive on a clean build.
       So, we only do it if profile is activated
-  -->
+    -->
     <profiles>
         <profile>
             <id>dependency-check</id>

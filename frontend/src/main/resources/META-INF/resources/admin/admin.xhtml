@@ -6,7 +6,7 @@
     <ui:define name="title">Welcome</ui:define>
     <ui:define name="content">
 
-        <sec:authorize access="hasRole('ADMIN')">
+        <sec:authorize access="hasAuthority('ADMIN')">
 
             <h2>Admin page</h2>
 

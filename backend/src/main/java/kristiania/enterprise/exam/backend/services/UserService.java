@@ -29,6 +29,11 @@ public class UserService {
 
     public boolean createUser(String email, String givenName, String familyName, String password) {
 
+        return createUser(email, givenName, familyName, password, "USER");
+    }
+
+    public boolean createUser(String email, String givenName, String familyName, String password, String role) {
+
         String hashedPassword = passwordEncoder.encode(password);
 
         if (entityManager.find(UserEntity.class, email) != null) {
@@ -40,11 +45,10 @@ public class UserService {
         user.setGivenName(givenName);
         user.setFamilyName(familyName);
         user.setPassword(hashedPassword);
-        user.setRoles(Collections.singleton("USER"));
+        user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
 
         entityManager.persist(user);
-
         return true;
     }
 }

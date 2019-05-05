@@ -49,7 +49,6 @@
         <module>report</module>
     </modules>
 
-
     <!-- Dependencies here are automatically added to all child-modules  -->
     <dependencies>
 
@@ -214,11 +213,8 @@
     </dependencyManagement>
 
     <build>
-
-
         <!-- Plugins here are automatically added to child-modules -->
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -246,9 +242,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${version.jacoco}</version>
             </plugin>
-
         </plugins>
-
 
         <!--
             Plugins here are added to child-modules ONLY IF
@@ -306,7 +300,6 @@
                     </executions>
                 </plugin>
 
-
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -332,8 +325,6 @@
                     </executions>
                 </plugin>
             </plugins>
-
         </pluginManagement>
     </build>
-
 </project>

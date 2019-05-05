@@ -24,7 +24,7 @@
 
         <h:button id="goHomeButton" outcome="/index.jsf" value="Go home" class="btn btn-dark"/>
 
-        <sec:authorize access="hasRole('ADMIN')">
+        <sec:authorize access="hasAuthority('ADMIN')">
             <h:button id="goToAdminPageButton" outcome="/admin/admin.jsf" value="Admin page" class="btn btn-dark"/>
         </sec:authorize>
 

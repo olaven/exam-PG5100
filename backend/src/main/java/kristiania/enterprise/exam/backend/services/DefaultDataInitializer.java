@@ -25,6 +25,7 @@ public class DefaultDataInitializer {
     private void insertDefaultUsers() {
         
         // USERS
+        attempt(() -> userService.createUser("admin@mail.com", "amdin-given", "admin-family", "admin", "ADMIN"));
         attempt(() -> userService.createUser("dev@mail.com", "dev-given", "dev-family", "dev"));
         attempt(() -> userService.createUser("none@booked.com", "givennothing", "familynothing", "dev"));
         attempt(() -> userService.createUser("iron@man.com", "Tony", "Stark", "suit"));
