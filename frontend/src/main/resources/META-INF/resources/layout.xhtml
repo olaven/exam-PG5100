@@ -1,9 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:sec="http://www.springframework.org/security/tags"
 >
     <!--
@@ -25,7 +23,7 @@
         <h:button id="goHomeButton" outcome="/index.jsf" value="Go home" class="btn btn-dark"/>
 
         <sec:authorize access="hasAuthority('ADMIN')">
-            <h:button id="goToAdminPageButton" outcome="/admin/admin.jsf" value="Admin page" class="btn btn-dark"/>
+            <h:button id="goToAdminPageButton" outcome="/admin.jsf" value="Admin page" class="btn btn-dark"/>
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
