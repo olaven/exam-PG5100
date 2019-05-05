@@ -6,9 +6,9 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:sec="http://www.springframework.org/security/tags"
 >
-<!--
-    Common layout for all pages
--->
+    <!--
+        Common layout for all pages
+    -->
 
 
     <h:head>
@@ -24,11 +24,17 @@
 
         <h:button id="goHomeButton" outcome="/index.jsf" value="Go home" class="btn btn-dark"/>
 
+        <sec:authorize access="hasRole('ADMIN')">
+            <h:button id="goToAdminPageButton" outcome="/admin/admin.jsf" value="Admin page" class="btn btn-dark"/>
+        </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">
+            <!-- MORE PAGES -->
+        </sec:authorize>
+
         <sec:authorize access="isAnonymous()">
-            <div class="navbar navbar-expand-lg">
-                <h:button id="loginBtnId" outcome="/login.jsf" value="Log In" class="btn btn-dark"/>
-                <h:button id="signupBtnId" outcome="/signup.jsf" value="Sign Up" class="btn btn-dark"/>
-            </div>
+            <h:button id="loginBtnId" outcome="/login.jsf" value="Log In" class="btn btn-dark"/>
+            <h:button id="signupBtnId" outcome="/signup.jsf" value="Sign Up" class="btn btn-dark"/>
         </sec:authorize>
 
         <hr/>

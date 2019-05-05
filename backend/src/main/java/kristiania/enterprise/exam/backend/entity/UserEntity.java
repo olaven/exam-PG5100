@@ -35,7 +35,7 @@ public class UserEntity {
     @Size(max = 340)// Long passwords are a good thing, but I still need to prevent attacks
     private String password;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
     @NotNull

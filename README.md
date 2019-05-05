@@ -9,6 +9,6 @@
 
 
 ## Notes 
-To deploy new version: "mvn clean package heroku:deploy -Dheroku.logProgress=true"
+To deploy new version: "cd frontend && mvn clean package heroku:deploy -Dheroku.logProgress=true"
 To check dependencies: "mvn verify -P dependency-check"
 Start Application with docker: "docker build frontend/ -t docker-frontend && docker run exam-frontend -p 8080:8080"

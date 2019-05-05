@@ -19,7 +19,7 @@
     <properties>
         <version.springboot>2.1.3.RELEASE</version.springboot>
 
-        <version.heroku>2.0.2</version.heroku>
+        <version.f>2.0.2</version.f>
 
         <version.joinfaces>3.2.3</version.joinfaces>
         <version.jstl>1.2.2</version.jstl>
@@ -29,6 +29,7 @@
         <version.postgres>42.1.4</version.postgres>
         <version.flyway>5.2.1</version.flyway>
 
+        <version.maven.compiler>3.8.1</version.maven.compiler>
         <version.surefire>2.22.1</version.surefire>
         <version.failsafe>2.22.1</version.failsafe>
 
@@ -38,6 +39,7 @@
         <version.selenium>3.141.59</version.selenium>
         <version.jacoco>0.7.9</version.jacoco>
         <version.owasp>3.1.1</version.owasp>
+        <version.heroku>2.0.2</version.heroku>
         <!--<version.junit.surefire.provider>1.2.0-M1</version.junit.surefire.provider>-->
     </properties>
 
@@ -220,6 +222,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven.compiler}</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
@@ -315,7 +318,6 @@
                     <artifactId>heroku-maven-plugin</artifactId>
                     <version>${version.heroku}</version>
                 </plugin>
-
 
                 <plugin>
                     <groupId>org.owasp</groupId>
