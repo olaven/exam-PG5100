@@ -20,22 +20,25 @@ public class DefaultDataInitializer {
     @PostConstruct
     public void initialize() {
 
+        insertCommonData();
+
         boolean test = Arrays.asList(environment.getActiveProfiles()).contains("test");
         if (test) {
-            System.out.println("TEST MODE");
+
             insertTestData();
-        } else {
-            System.out.println("PRODUCTION MODE");
         }
     }
 
+    private void insertCommonData() {
+
+        attempt(() ->   attempt(() -> userService.createUser("admin@mail.com", "amdin-given", "admin-family", "admin", "ADMIN")));
+    }
 
     private void insertTestData() {
 
         System.out.println("ADDING TEST DATA");
         
         // USERS
-        attempt(() -> userService.createUser("admin@mail.com", "amdin-given", "admin-family", "admin", "ADMIN"));
         attempt(() -> userService.createUser("dev@mail.com", "dev-given", "dev-family", "dev"));
         attempt(() -> userService.createUser("none@booked.com", "givennothing", "familynothing", "dev"));
         attempt(() -> userService.createUser("iron@man.com", "Tony", "Stark", "suit"));

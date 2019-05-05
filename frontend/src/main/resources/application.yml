@@ -18,5 +18,3 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
-  profiles:
-    active: "production"
