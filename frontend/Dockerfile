@@ -1,4 +1,4 @@
-#NOTE: This file is a modified version of:
+#NOTE: This file is a copied from version of:
 #* https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/Dockerfile
 
 # ONLY used for testing

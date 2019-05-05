@@ -1,11 +1,7 @@
-# This file is copied from
-# * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/spring/deployment/src/main/resources/application.yml
-
 jsf:
   projectStage: Production
 
-# Note: no need to specify URL of database, as Heroku will
-# automatically set environmental variables used by Spring
+# This is meant to be run with docker image in root.
 
 spring:
   datasource:
@@ -22,3 +18,5 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+  profiles:
+    active: "production"

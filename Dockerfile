@@ -10,5 +10,4 @@ ADD frontend/target/frontend-exec.jar .
 
 CMD java -jar frontend-exec.jar
 
-# --spring.datasource.username="postgres"   --spring.datasource.password  --spring.datasource.url="jdbc:postgresql://postgresql:5432/postgres"
 
