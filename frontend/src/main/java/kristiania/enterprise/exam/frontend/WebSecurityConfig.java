@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/assets/**").permitAll()
                     .antMatchers("/index.*").permitAll()
                     .antMatchers("/signup.*").permitAll()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/javax.faces.resource/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
@@ -69,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login.jsf")
                     .permitAll()
                     .failureUrl("/login.jsf?error=true")
-                    .defaultSuccessUrl("/index.jsf?faces-redirect=true")
+                    .defaultSuccessUrl("/index.jsf?faces-redirect=true", true)
                     .and()
                     .logout()
                     .logoutSuccessUrl("/index.jsf?faces-redirect=true");

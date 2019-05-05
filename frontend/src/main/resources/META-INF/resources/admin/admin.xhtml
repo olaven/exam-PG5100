@@ -2,17 +2,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:sec="http://www.springframework.org/security/tags">
+
     <ui:define name="title">Welcome</ui:define>
     <ui:define name="content">
 
-        <sec:authorize access="isAuthenticated()">
+        <sec:authorize access="hasRole('ADMIN')">
 
-            <h2>Home page</h2>
+            <h2>Admin page</h2>
 
-        </sec:authorize>
-
-        <sec:authorize access="isAnonymous()">
-            <p>You must log in</p>
         </sec:authorize>
     </ui:define>
 

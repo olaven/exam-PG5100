@@ -24,28 +24,28 @@
 
         <h:button id="goHomeButton" outcome="/index.jsf" value="Go home" class="btn btn-dark"/>
 
-        <sec:anonymous>
+        <sec:authorize access="isAnonymous()">
             <div class="navbar navbar-expand-lg">
                 <h:button id="loginBtnId" outcome="/login.jsf" value="Log In" class="btn btn-dark"/>
                 <h:button id="signupBtnId" outcome="/signup.jsf" value="Sign Up" class="btn btn-dark"/>
             </div>
-        </sec:anonymous>
+        </sec:authorize>
 
         <hr/>
 
         <ui:insert name="content">Default content</ui:insert>
 
         <div class="fixed-bottom">
-            <sec:authenticated>
+            <sec:authorize access="isAuthenticated()">
                 <form action="/logout" class="form">
                     <input value="Log out" type="submit" id="logoutBtnId" class="btn btn-secondary"/>
                 </form>
 
                 <div>Thanks for using my web application, <h:outputText value="#{userInfoController.userName}"/>.</div>
-            </sec:authenticated>
-            <sec:anonymous>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous()">
                 <div>Thanks for using my web application, you great person</div>
-            </sec:anonymous>
+            </sec:authorize>
         </div>
     </h:body>
 </html>
