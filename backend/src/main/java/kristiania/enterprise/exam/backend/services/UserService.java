@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 
 /*
@@ -45,10 +46,16 @@ public class UserService {
         user.setGivenName(givenName);
         user.setFamilyName(familyName);
         user.setPassword(hashedPassword);
+        user.setRanks(new ArrayList<>());
         user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
 
         entityManager.persist(user);
         return true;
+    }
+
+    public UserEntity getUser(String email) {
+
+        return entityManager.find(UserEntity.class, email);
     }
 }

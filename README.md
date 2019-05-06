@@ -1,6 +1,16 @@
 # Enterprise Exam  
 [![Build Status](https://travis-ci.com/olaven/exam-PG5100.svg?token=zTzVh5wrqM89cpyf9qVd&branch=master)](https://travis-ci.com/olaven/exam-PG5100)
 
+## Entry points 
+For starting in dev mode: `LocalApplicationRunner.java`
+For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
+For running frontend-test with docker: `SeleniumDockerIT.java`
+
+## Assumptions 
+1. The task mentions popular card games as examples. 
+My assumption is that we are not supposed to model a copy 
+of such a card game, but rather, something _like_ those games 
+
 ## Extras
 * The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com) 
 * The app is running on Travis 

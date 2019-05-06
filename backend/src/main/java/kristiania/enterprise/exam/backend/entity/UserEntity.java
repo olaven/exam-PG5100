@@ -34,7 +34,7 @@ public class UserEntity {
     private String password;
 
     @NotNull
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "rankId.user")
     private List<Rank> ranks;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -76,6 +76,14 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Rank> getRanks() {
+        return ranks;
+    }
+
+    public void setRanks(List<Rank> ranks) {
+        this.ranks = ranks;
     }
 
     public Set<String> getRoles() {

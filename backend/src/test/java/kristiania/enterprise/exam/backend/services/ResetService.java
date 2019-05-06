@@ -1,6 +1,6 @@
-package kristiania.enterprise.exam.backend;
+package kristiania.enterprise.exam.backend.services;
 
-import kristiania.enterprise.exam.backend.entity.UserEntity;
+import kristiania.enterprise.exam.backend.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Entity;
@@ -26,8 +26,10 @@ public class ResetService {
         Query query = em.createNativeQuery("delete from user_entity_roles");
         query.executeUpdate();
 
+        deleteEntities(Comment.class);
+        deleteEntities(Rank.class);
+        deleteEntities(Item.class);
         deleteEntities(UserEntity.class);
-
     }
 
     private void deleteEntities(Class<?> entity){
