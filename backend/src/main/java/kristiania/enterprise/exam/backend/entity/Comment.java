@@ -4,16 +4,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@NamedQueries(
+@NamedQueries({
         @NamedQuery(
                 name = Comment.GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID,
                 query = "select comment from Comment comment where comment.rank.rankId.user.email = :userEmail and comment.rank.rankId.item.id = :itemId"
-        )
-)
+        ),
+        @NamedQuery(name = Comment.GET_COMMENTS_BY_ITEM, query = "select comment from Comment comment where comment.rank.rankId.item.id = :itemId")
+})
 @Entity
 public class Comment {
 
     public static final String GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID = "GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID";
+    public static final String GET_COMMENTS_BY_ITEM = "GET_COMMENTS_BY_ITEM";
     @Id
     @GeneratedValue
     private Long id;

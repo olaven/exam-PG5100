@@ -11,15 +11,17 @@
         <c:set var="item" value="#{itemController.getItem(id)}"/>
 
         <h1> #{item.title} - Item details</h1>
-
+        <h:outputText value="#{item.description}"/>
+        <br/>
         Rating: #{rankController.getGetAverageScoreOf(item.id)} based on #{rankController.getGetRateCountOf(item.id)} users.
-        <br />
+        <br/>
+
         <sec:authorize access="isAuthenticated()">
 
             <h2>Set your score:</h2>
 
             <h:outputText
-                    value="#{rankController.getCurrentScore(item.id)}"
+                    value="Your current ranking: #{rankController.getCurrentScore(item.id)}"
                     rendered="#{rankController.hasRanked(item.id)}"/>
 
             <h:form id="setScoreForm">
@@ -34,7 +36,38 @@
 
 
             <h2>Add/Update a comment to your score</h2>
+
+            <c:choose>
+                <c:when test="${rankController.hasRanked(item.id)}">
+                    <h:form id="createCommentForm">
+                        <input type="hidden" name="itemId" value="#{param['itemId']}" />
+                        <c:set var="itemId" value="#{param['itemId']}"/>
+                        <h:outputLabel value="title:"/>
+                        <h:inputText value="#{commentController.currentTitle}" id="createCommentTitle"/>
+                        <br/>
+
+                        <h:outputLabel value="content:"/>
+                        <h:inputTextarea value="#{commentController.currentContent}" id="createCommentContent"/>
+                        <br/>
+
+                        <h:commandButton value="Create comment" action="#{commentController.createNewComment(itemId)}" id="createCommentButton"/>
+                        <h:outputLabel value="Comment failed. Make sure to have content in both boxes."
+                                       rendered="${!empty param['error']}"/>
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    <br/>
+                    You must rank the item to add a comment.
+                    <br/>
+                </c:otherwise>
+            </c:choose>
         </sec:authorize>
+
+        <ui:repeat value="#{commentController.getCommentByItem(item.id)}" var="comment">
+            <h3>#{comment.title} - #{comment.rank.score}</h3>
+            <h:outputText value="#{comment.content}"/> <br/>
+            <h:outputText value="- #{comment.rank.rankId.user.email}"/>
+        </ui:repeat>
     </ui:define>
 </ui:composition>
 

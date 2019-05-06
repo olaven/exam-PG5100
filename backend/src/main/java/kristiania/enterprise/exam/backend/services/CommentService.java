@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -72,5 +73,13 @@ public class CommentService {
 
         Comment comment = getComment(rank);
         return comment != null;
+    }
+
+    public List<Comment> getCommentByItem(Long itemId) {
+
+        Query query = entityManager.createNamedQuery(Comment.GET_COMMENTS_BY_ITEM, Comment.class);
+        query.setParameter("itemId", itemId);
+
+        return  query.getResultList();
     }
 }

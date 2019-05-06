@@ -1,10 +1,12 @@
 package kristiania.enterprise.exam.frontend.controller;
 
+import kristiania.enterprise.exam.backend.entity.Comment;
 import kristiania.enterprise.exam.backend.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.annotation.RequestScope;
 
 import javax.inject.Named;
+import java.util.List;
 
 @RequestScope
 @Named
@@ -39,16 +41,18 @@ public class CommentController {
 
     public String createNewComment(Long itemId) {
 
-        System.out.println("I AM GETTING HERE");
         String userEmail = userInfoController.getEmail();
-
         String url = String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
         if(currentTitle.isEmpty() || currentContent.isEmpty()) {
             return url + "&error=true";
         }
 
         commentService.createComment(userEmail, itemId, currentTitle, currentContent);
-
         return url;
+    }
+
+    public List<Comment> getCommentByItem(Long itemId) {
+
+        return commentService.getCommentByItem(itemId);
     }
 }
