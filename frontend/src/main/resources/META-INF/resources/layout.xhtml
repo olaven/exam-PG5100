@@ -28,7 +28,7 @@
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
-            <!-- MORE PAGES -->
+            <h:button id="goToProfilePageButton" outcome="/profile.jsf" value="Profile page" class="btn btn-dark"/>
         </sec:authorize>
 
         <sec:authorize access="isAnonymous()">

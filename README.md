@@ -10,7 +10,7 @@ For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
 For running frontend-test with docker: `SeleniumDockerIT.java`
 
 ## Assumptions 
-1. The task mentions popular card games as examples. 
+1. The assignment mentions popular card games as examples. 
 My assumption is that we are not supposed to model a copy 
 of such a card game, but rather, something _like_ those games
 2. It is mentioned that some features are only available to logged-in users. 

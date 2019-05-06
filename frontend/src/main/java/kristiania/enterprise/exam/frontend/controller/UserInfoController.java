@@ -32,6 +32,11 @@ public class UserInfoController {
         return user.getGivenName() + " " + user.getFamilyName();
     }
 
+    public int getRankCount() {
+
+        return userService.getRankCount(getEmail());
+    }
+
     private UserDetails getUserDetails() {
 
         return (UserDetails) SecurityContextHolder

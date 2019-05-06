@@ -58,4 +58,11 @@ public class UserService {
 
         return entityManager.find(UserEntity.class, email);
     }
+
+    public int getRankCount(String email) {
+
+        return getUser(email)
+                .getRanks()
+                .size();
+    }
 }

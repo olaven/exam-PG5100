@@ -1,0 +1,29 @@
+<ui:composition template="layout.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags">
+
+    <ui:define name="title">Profile</ui:define>
+    <ui:define name="content">
+
+        <sec:authorize access="isAuthenticated()">
+
+            <h2>Profile page</h2>
+
+            <h:outputLabel value="email:"/>
+            <h:outputText value="#{userInfoController.email}"/>
+            <br/>
+
+            <h:outputLabel value="full name:"/>
+            <h:outputText value="#{userInfoController.fullName}"/>
+            <br/>
+
+            <h:outputLabel value="Rank-count:"/>
+            <h:outputText value="#{userInfoController.rankCount}"/>
+            <br/>
+
+        </sec:authorize>
+    </ui:define>
+
+</ui:composition>
+
