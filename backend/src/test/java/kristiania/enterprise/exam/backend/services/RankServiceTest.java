@@ -131,4 +131,17 @@ class RankServiceTest extends ServiceTestBase {
         long count = rankService.getRankCount(item.getId());
         assertEquals(2, count);
     }
+
+    @Test
+    public void testCanGetCurrentScore() {
+
+        Item item = itemService.getItem(createTestItem());
+        UserEntity user = userService.getUser(createTestUser());
+
+        rankService.rankItem(item, user, 3);
+        assertEquals(3, rankService.getCurrentScore(item.getId(), user.getEmail()));
+
+        rankService.rankItem(item ,user, 2);
+        assertEquals(2, rankService.getCurrentScore(item.getId(), user.getEmail()));
+    }
 }

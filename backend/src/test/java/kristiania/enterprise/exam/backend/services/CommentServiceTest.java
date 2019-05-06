@@ -1,12 +1,16 @@
 package kristiania.enterprise.exam.backend.services;
 
+import kristiania.enterprise.exam.backend.entity.Comment;
+import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.Rank;
-import kristiania.enterprise.exam.backend.entity.RankId;
+import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,42 +24,6 @@ class CommentServiceTest extends ServiceTestBase {
     @Autowired
     private RankService rankService;
 
-  /*  @Test
-    public void testCanLeaveComment() {
-
-        RankId rankId = createTestRank();
-
-        Rank rankBefore = rankService.getRank(rankId);
-        assertNull(rankBefore.getComment());
-
-        commentService.createNewComment(rankBefore, "test title", "test content");
-
-        Rank rankAfter = rankService.getRank(rankId);
-        assertNotNull(rankAfter.getComment());
-    }
-
-    @Test
-    public void testCanUpdateComment() {
-
-        String originalTitle = "original title";
-        String originalContent = "original content";
-
-        Rank rank = rankService.getRank(createTestRank());
-        commentService.createNewComment(rank, originalTitle, originalContent);
-
-        assertEquals(originalTitle, commentService.getComment(rank).getTitle());
-        assertEquals(originalContent, commentService.getComment(rank).getContent());
-
-        // UPDATING:
-        String updatedTitle = "updated title";
-        String updatedContent = "updated content";
-
-        commentService.updateComment(rank, updatedTitle, updatedContent);
-
-        assertEquals(updatedTitle, commentService.getComment(rank).getTitle());
-        assertEquals(updatedContent, commentService.getComment(rank).getContent());
-    }
-*/
     @Test
     public void testCreatesNewCommentIfNotPresent() {
 
@@ -89,5 +57,24 @@ class CommentServiceTest extends ServiceTestBase {
         commentService.createComment(userEmail, itemId, updatedTitle, updatedContent);
         assertEquals(updatedTitle, commentService.getComment(rank).getTitle());
         assertEquals(updatedContent, commentService.getComment(rank).getContent());
+    }
+
+    @Test
+    public void testCanGetCommentByItem() {
+
+        int n = 3;
+        Long itemId = createTestItem();
+        Item item = itemService.getItem(itemId);
+
+        for (int i = 0; i < n; i++) {
+
+            String userEmail = createTestUser();
+            UserEntity user = userService.getUser(userEmail);
+
+            rankService.rankItem(item, user, 4);
+            commentService.createComment(userEmail, itemId, "comment title", "comment content");
+        }
+
+        assertEquals(n, commentService.getCommentsByItem(itemId).size());
     }
 }

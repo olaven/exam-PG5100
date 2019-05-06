@@ -53,6 +53,6 @@ public class CommentController {
 
     public List<Comment> getCommentByItem(Long itemId) {
 
-        return commentService.getCommentByItem(itemId);
+        return commentService.getCommentsByItem(itemId);
     }
 }

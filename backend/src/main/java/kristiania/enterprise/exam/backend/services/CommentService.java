@@ -75,7 +75,7 @@ public class CommentService {
         return comment != null;
     }
 
-    public List<Comment> getCommentByItem(Long itemId) {
+    public List<Comment> getCommentsByItem(Long itemId) {
 
         Query query = entityManager.createNamedQuery(Comment.GET_COMMENTS_BY_ITEM, Comment.class);
         query.setParameter("itemId", itemId);

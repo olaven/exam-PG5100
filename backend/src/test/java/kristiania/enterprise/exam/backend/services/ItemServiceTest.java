@@ -1,5 +1,6 @@
 package kristiania.enterprise.exam.backend.services;
 
+import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,5 +44,35 @@ class ItemServiceTest extends ServiceTestBase {
         assertEquals(unpopular.getId(), items.get(2).getId());
     }
 
-    //TODO: test for category
+    @Test
+    public void testCanFilterByCategory() {
+
+        itemService.getItem(
+                itemService.createItem("blue 1", "blue item", Category.BLUE)
+        );
+        itemService.getItem(
+                itemService.createItem("blue 2", "blue item", Category.BLUE)
+        );
+        itemService.getItem(
+                itemService.createItem("red", "red item", Category.RED)
+        );
+
+
+
+        List<Item> allItems = itemService.getItemsSortedByScore(null);
+        assertEquals(3, allItems.size());
+
+        List<Item> filtered = itemService.getItemsSortedByScore(Category.BLUE);
+        assertEquals(2, filtered.size());
+        filtered.forEach(item -> assertEquals(Category.BLUE, item.getCategory()));
+    }
+
+    @Test
+    public void testDoesReturnAllCategories() {
+
+        List<Category> expected = Arrays.stream(Category.values()).collect(Collectors.toList());
+        List<Category> actual = itemService.getAllCategories();
+
+        actual.forEach(category -> assertTrue(expected.contains(category)));
+    }
 }

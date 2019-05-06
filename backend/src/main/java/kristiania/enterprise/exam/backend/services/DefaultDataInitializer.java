@@ -2,7 +2,6 @@ package kristiania.enterprise.exam.backend.services;
 
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
-import kristiania.enterprise.exam.backend.entity.RankId;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -16,8 +15,6 @@ import java.util.function.Supplier;
  * The approach in this file is heavily inspired by:
  * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/734b4a660d8e1d815e2600c0e84cea5920bc5572/intro/exercise-solutions/quiz-game/part-10/src/main/java/org/tsdes/intro/exercises/quizgame/service/DefaultDataInitializerService.java
  */
-
-
 
 @Service
 public class DefaultDataInitializer {
