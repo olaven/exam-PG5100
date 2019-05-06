@@ -27,6 +27,8 @@ public class IndexPO extends LayoutPO {
 
     @Override
     public boolean isOnPage() {
+        String string = getDriver().getTitle();
+        System.out.println(string);
         return getDriver().getTitle().contains("Welcome");
     }
 }

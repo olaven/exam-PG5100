@@ -25,7 +25,7 @@
         <version.jstl>1.2.2</version.jstl>
         <version.cdi>2.0</version.cdi>
 
-        <version.h2>1.4.197</version.h2>
+        <version.h2>1.4.199</version.h2>
         <version.postgres>42.1.4</version.postgres>
         <version.flyway>5.2.1</version.flyway>
 

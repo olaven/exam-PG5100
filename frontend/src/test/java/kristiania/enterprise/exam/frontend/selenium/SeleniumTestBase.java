@@ -26,20 +26,20 @@ public abstract class SeleniumTestBase {
     private static final AtomicInteger counter = new AtomicInteger(0);
 
     private String getUniqueId() {
-        return "foo_SeleniumLocalIT_" + counter.getAndIncrement();
+        return "foo_SeleniumLocalIT_" + counter.getAndIncrement() + "@mail.com";
     }
 
 
     private IndexPO home;
 
 
-    private IndexPO createNewUser(String username, String password) {
+    private IndexPO createNewUser(String email, String givenName, String familyName, String password) {
 
         home.toStartingPage();
 
         SignUpPO signUpPO = home.toSignUp();
 
-        IndexPO indexPO = signUpPO.createUser(username, password);
+        IndexPO indexPO = signUpPO.createUser(email, givenName, familyName, password);
         assertNotNull(indexPO);
 
         return indexPO;
@@ -67,16 +67,18 @@ public abstract class SeleniumTestBase {
 
         assertFalse(home.isLoggedIn());
 
-        String username = getUniqueId();
+        String email = getUniqueId();
+        String givenName = "given";
+        String familyName = "family";
         String password = "123456789";
-        home = createNewUser(username, password);
+        home = createNewUser(email, givenName, familyName, password);
 
         assertTrue(home.isLoggedIn());
-        assertTrue(home.getDriver().getPageSource().contains(username));
+        assertTrue(home.getDriver().getPageSource().contains(email));
 
         home.doLogout();
 
         assertFalse(home.isLoggedIn());
-        assertFalse(home.getDriver().getPageSource().contains(username));
+        assertFalse(home.getDriver().getPageSource().contains(email));
     }
 }

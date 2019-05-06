@@ -9,7 +9,7 @@
 
 
 ## Notes 
-To build production-version: 
+To build and run production-version: 
     'mvn clean package && docker-compose up'
 
 To deploy new version: "cd frontend && mvn clean package heroku:deploy -Dheroku.logProgress=true"

@@ -19,9 +19,11 @@ public class SignUpPO extends LayoutPO{
         return getDriver().getTitle().contains("Sign Up");
     }
 
-    public IndexPO createUser(String userName, String password){
+    public IndexPO createUser(String email, String givenName, String familyName, String password){
 
-        setText("usernameTextId", userName);
+        setText("emailTextId", email);
+        setText("givenNameTextId", givenName);
+        setText("familyNameTextId", familyName);
         setText("passwordTextId", password);
         clickAndWait("submitBtnId");
 
