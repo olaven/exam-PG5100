@@ -12,6 +12,7 @@ My assumption is that we are not supposed to model a copy
 of such a card game, but rather, something _like_ those games 
 
 ## Extras
+* The app has support for admin-users 
 * The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com) 
 * The app is running on Travis 
 * Selenium-tests can be run in Docker using `SeleniumDockerIT`

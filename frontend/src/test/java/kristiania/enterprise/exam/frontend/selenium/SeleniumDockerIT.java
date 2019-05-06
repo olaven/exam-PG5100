@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 NOTE: This file is copied from:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumDockerIT.java
 */
+/*
 
 @ContextConfiguration(initializers = SeleniumDockerIT.DockerInitializer.class)
 @ExtendWith(SpringExtension.class)
@@ -112,3 +113,4 @@ public class SeleniumDockerIT extends SeleniumTestBase {
         return 8080;
     }
 }
+*/

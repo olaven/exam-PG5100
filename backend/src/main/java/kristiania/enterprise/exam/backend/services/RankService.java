@@ -18,7 +18,7 @@ public class RankService {
     private EntityManager entityManager;
 
     @Transactional
-    public void rankItem(Item item, UserEntity user, int score) {
+    public RankId rankItem(Item item, UserEntity user, int score) {
 
         validateScore(score);
 
@@ -27,7 +27,7 @@ public class RankService {
             throw new IllegalStateException("user may not rank item twice");
         }
 
-        createRank(item, user, score);
+        return createRank(item, user, score);
     }
 
     @Transactional
