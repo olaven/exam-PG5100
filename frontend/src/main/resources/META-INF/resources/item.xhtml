@@ -1,22 +1,40 @@
 <ui:composition template="./layout.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:sec="http://www.springframework.org/security/tags" xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://java.sun.com/jsf/html">
 
     <ui:define name="title">Welcome</ui:define>
     <ui:define name="content">
 
-        <c:set var="item" value="#{itemController.getItem(param['id'])}"/>
+        <c:set var="id" value="#{param['itemId']}"/>
+        <c:set var="item" value="#{itemController.getItem(id)}"/>
 
-        <h1> #{item.title}Trip details </h1>
+        <h1> #{item.title} - Item details</h1>
 
-        Content for all
+        Rating: #{rankController.getGetAverageScoreOf(item.id)} based on #{rankController.getGetRateCountOf(item.id)} users.
+        <br />
         <sec:authorize access="isAuthenticated()">
 
-            Content for auth
+            <h2>Set your score:</h2>
+
+            <h:outputText
+                    value="#{rankController.getCurrentScore(item.id)}"
+                    rendered="#{rankController.hasRanked(item.id)}"/>
+
+            <h:form id="setScoreForm">
+                <input type="hidden" name="itemId" value="#{param['itemId']}" />
+                <c:set var="itemId" value="#{param['itemId']}"/>
+                <p:commandButton class="setScoreButton btn btn-primary" value="1" action="#{rankController.setNewScore(1, itemId)}"/>
+                <p:commandButton class="setScoreButton btn btn-primary" value="2" action="#{rankController.setNewScore(2, itemId)}"/>
+                <p:commandButton class="setScoreButton btn btn-primary" value="3" action="#{rankController.setNewScore(3, itemId)}"/>
+                <p:commandButton class="setScoreButton btn btn-primary" value="4" action="#{rankController.setNewScore(4, itemId)}"/>
+                <p:commandButton class="setScoreButton btn btn-primary" value="5" action="#{rankController.setNewScore(5, itemId)}"/>
+            </h:form>
+
+
+            <h2>Add/Update a comment to your score</h2>
         </sec:authorize>
-
     </ui:define>
-
 </ui:composition>
 

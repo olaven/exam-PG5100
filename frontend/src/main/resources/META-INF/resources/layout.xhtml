@@ -46,7 +46,7 @@
                     <input value="Log out" type="submit" id="logoutBtnId" class="btn btn-secondary"/>
                 </form>
 
-                <div>Thanks for using my web application, <h:outputText value="#{userInfoController.userName}"/>.</div>
+                <div>Thanks for using my web application, <h:outputText value="#{userInfoController.email}"/>.</div>
             </sec:authorize>
             <sec:authorize access="isAnonymous()">
                 <div>Thanks for using my web application, you great person</div>

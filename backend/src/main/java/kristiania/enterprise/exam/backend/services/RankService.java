@@ -1,13 +1,11 @@
 package kristiania.enterprise.exam.backend.services;
 
 import kristiania.enterprise.exam.backend.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -22,22 +20,28 @@ public class RankService {
 
         validateScore(score);
 
-        if(hasRanked(item.getId(), user.getEmail())) {
+        if(hasRanked(user.getEmail(), item.getId())) {
 
-            throw new IllegalStateException("user may not rank item twice");
+            return updateScore(user.getEmail(), item.getId(), score);
         }
 
         return createRank(item, user, score);
     }
 
     @Transactional
-    public void updateScore(RankId rankId, int score) {
+    public RankId updateScore(String userEmail, Long  itemId, int score) {
 
         validateScore(score);
 
-        Rank rank = entityManager.find(Rank.class, rankId);
+        Rank rank = (Rank) entityManager.createNamedQuery(Rank.GET_RANK_BY_USER_EMAIL_AND_ITEM_ID)
+                .setParameter("userEmail", userEmail)
+                .setParameter("itemId", itemId)
+                .getResultList()
+                .get(0);
+
         rank.setScore(score);
         entityManager.merge(rank);
+        return rank.getRankId();
     }
 
     public double getAverageRank(Long itemId) {
@@ -65,8 +69,8 @@ public class RankService {
 
     public Rank getRank(String userEmail, Long itemId) {
 
-        Query query = entityManager.createNamedQuery(Rank.GET_BY_USER_EMAIL_AND_ITEM_ID, Rank.class);
-        query.setParameter("email", userEmail);
+        Query query = entityManager.createNamedQuery(Rank.GET_RANK_BY_USER_EMAIL_AND_ITEM_ID, Rank.class);
+        query.setParameter("userEmail", userEmail);
         query.setParameter("itemId", itemId);
 
         List<Rank> results = (List<Rank>) query.getResultList();
@@ -83,7 +87,7 @@ public class RankService {
     }
 
 
-    public boolean hasRanked(Long itemId, String userEmail) {
+    public boolean hasRanked(String userEmail, Long itemId) {
 
         Rank rank = getRank(userEmail,itemId);
         boolean ranked = rank != null;
@@ -112,4 +116,13 @@ public class RankService {
         }
     }
 
+    public int getCurrentScore(Long itemId, String userEmail) {
+
+        Query query = entityManager.createNamedQuery(Rank.GET_SCORE_BY_ITEM_ID_AND_USER_EMAIL, Integer.class);
+        query.setParameter("itemId", itemId);
+        query.setParameter("userEmail", userEmail);
+
+        int result = (Integer) query.getSingleResult();
+        return result;
+    }
 }

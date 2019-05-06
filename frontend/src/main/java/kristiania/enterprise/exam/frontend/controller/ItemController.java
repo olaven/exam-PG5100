@@ -35,7 +35,7 @@ public class ItemController implements Serializable {
 
     public String goToItemPage(Long id) {
 
-        return String.format("item.jsf?id=%d&faces-redirect=true", id);
+        return String.format("item.jsf?itemId=%d&faces-redirect=true", id);
     }
 
     public Item getItem(Long id) {
@@ -59,7 +59,7 @@ public class ItemController implements Serializable {
         } else {
             homePageItems = itemService.getItemsSortedByScore(null);
         }
-        
+
         return "/search.jsf?faces-redirect=true";
     }
 

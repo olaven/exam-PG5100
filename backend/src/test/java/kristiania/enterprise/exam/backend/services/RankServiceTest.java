@@ -41,22 +41,6 @@ class RankServiceTest extends ServiceTestBase {
         assertNotNull(after);
     }
 
-
-    @Test
-    public void testThrowsIfMultipleRanks() {
-
-        String userEmail = createTestUser();
-        Long itemId = itemService.createItem("test item", "test item desc", Category.BLUE);
-
-        UserEntity user = userService.getUser(userEmail);
-        Item item = itemService.getItem(itemId);
-
-        rankService.rankItem(item, user, 3);
-        assertThrows(IllegalStateException.class, () -> {
-            rankService.rankItem(item, user, 2);
-        });
-    }
-
     @Test
     public void testThrowsIfScoreIsTooGreat() {
 
@@ -90,27 +74,27 @@ class RankServiceTest extends ServiceTestBase {
     @Test
     public void testCanUpdateScore() {
 
-        RankId rankId = createTestRank();
+        RankId rId = createTestRank();
 
-        rankService.updateScore(rankId, 2);
+        rankService.updateScore(rId.getUser().getEmail(), rId.getItem().getId(), 2);
 
-        Rank rank = rankService.getRank(rankId);
+        Rank rank = rankService.getRank(rId);
         assertEquals(Integer.valueOf(2), rank.getScore());
     }
 
     @Test
     public void testThrowsIfUpdatingToInvalidScore() {
 
-        RankId rankId = createTestRank();
+        RankId rId = createTestRank();
 
         assertThrows(IllegalArgumentException.class, () -> {
 
-            rankService.updateScore(rankId, 0);
+            rankService.updateScore(rId.getUser().getEmail(), rId.getItem().getId(), 0);
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
 
-            rankService.updateScore(rankId, 6);
+            rankService.updateScore(rId.getUser().getEmail(), rId.getItem().getId(), 6);
         });
     }
 

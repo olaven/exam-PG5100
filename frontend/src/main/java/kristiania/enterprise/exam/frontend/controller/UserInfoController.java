@@ -21,14 +21,14 @@ public class UserInfoController {
     @Autowired
     private UserService userService;
 
-    public String getUserName(){
+    public String getEmail(){
+        //NOTE: username is an email in application-logic
         return getUserDetails().getUsername();
     }
 
     public String getFullName() {
 
-        //NOTE: username is an email in application-logic
-        UserEntity user = userService.getUser(getUserName());
+        UserEntity user = userService.getUser(getEmail());
         return user.getGivenName() + " " + user.getFamilyName();
     }
 
