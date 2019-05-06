@@ -2,7 +2,6 @@ package kristiania.enterprise.exam.backend.services;
 
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
-import kristiania.enterprise.exam.backend.entity.Rank;
 import kristiania.enterprise.exam.backend.entity.RankId;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,90 +100,101 @@ public class DefaultDataInitializer {
         Item calmGolem = itemService.getItem(calmGolemId);
 
         // Ranks
-        RankId elephantJohn = attempt(() -> rankService.rankItem(elephant, john, 3));
-        RankId elephantHans = attempt(() -> rankService.rankItem(elephant, hans, 2));
+        attempt(() -> rankService.rankItem(elephant, john, 3));
+        attempt(() -> rankService.rankItem(elephant, hans, 2));
 
-        RankId sailorJohn = attempt(() -> rankService.rankItem(sailor, john, 5));
+        attempt(() -> rankService.rankItem(sailor, john, 5));
 
-        RankId frogMarcin = attempt(() -> rankService.rankItem(frog, marcin, 4));
-        RankId frogHans = attempt(() -> rankService.rankItem(frog, hans, 3));
+        attempt(() -> rankService.rankItem(frog, marcin, 4));
+        attempt(() -> rankService.rankItem(frog, hans, 3));
 
 
-        RankId stoneGolemMarcin = attempt(() -> rankService.rankItem(stoneGolem, marcin, 4));
-        RankId stoneGolemMikolaj = attempt(() -> rankService.rankItem(stoneGolem, mikolaj, 2));
+        attempt(() -> rankService.rankItem(stoneGolem, marcin, 4));
+        attempt(() -> rankService.rankItem(stoneGolem, mikolaj, 2));
 
-        RankId hikerMikolaj = attempt(() -> rankService.rankItem(hiker, mikolaj, 5));
-        RankId hikerJohn = attempt(() -> rankService.rankItem(hiker, john, 4));
-        RankId hikerHans = attempt(() -> rankService.rankItem(hiker, hans, 2));
+        attempt(() -> rankService.rankItem(hiker, mikolaj, 5));
+        attempt(() -> rankService.rankItem(hiker, john, 4));
+        attempt(() -> rankService.rankItem(hiker, hans, 2));
 
-        RankId horceMarcin = attempt(() -> rankService.rankItem(horse, marcin, 4));
-        RankId horseJohn = attempt(() -> rankService.rankItem(horse, john, 1));
+        attempt(() -> rankService.rankItem(horse, marcin, 4));
+        attempt(() -> rankService.rankItem(horse, john, 1));
 
-        RankId calmGolemJohn = attempt(() -> rankService.rankItem(calmGolem, john, 4));
-        RankId calmGolemMarcin = attempt(() -> rankService.rankItem(calmGolem, marcin, 5));
-        RankId calmGolemMikolaj = attempt(() -> rankService.rankItem(calmGolem, mikolaj, 4));
+        attempt(() -> rankService.rankItem(calmGolem, john, 4));
+        attempt(() -> rankService.rankItem(calmGolem, marcin, 5));
+        attempt(() -> rankService.rankItem(calmGolem, mikolaj, 4));
 
         // Comments
-        commentService.leaveComment(
-                rankService.getRank(elephantJohn),
+        commentService.createComment(
+                john.getEmail(),
+                elephant.getId(),
                 "This is a nice card",
                 "The image is stunning and the elephant is cute"
         );
 
-        commentService.leaveComment(
-                rankService.getRank(sailorJohn),
+        commentService.createComment(
+                john.getEmail(),
+                sailor.getId(),
                 "This is an my favourite card",
                 "The lonely sailor is a nice card with beautiful art. It brings back so many memories from the sea."
         );
 
-        commentService.leaveComment(
-                rankService.getRank(frogMarcin),
+        commentService.createComment(
+                marcin.getEmail(),
+                frog.getId(),
                 "One of the best",
                 "The description is nice and the illustration makes me happy."
         );
-        commentService.leaveComment(
-                rankService.getRank(frogHans),
+        commentService.createComment(
+                hans.getEmail(),
+                frog.getId(),
                 "just ok",
                 "While nice, I see nothing special about this card"
         );
 
 
-        commentService.leaveComment(
-                rankService.getRank(stoneGolemMarcin),
+        commentService.createComment(
+                marcin.getEmail(),
+                stoneGolem.getId(),
                 "Nice art",
                 "Nice art! I do not like the color that much, though.."
         );
 
 
-        commentService.leaveComment(
-                rankService.getRank(hikerMikolaj),
+        commentService.createComment(
+                mikolaj.getEmail(),
+                hiker.getId(),
                 "Lovely art",
                 "This is probably my favourite. I love the art!"
         );
-        commentService.leaveComment(
-                rankService.getRank(hikerJohn),
+        commentService.createComment(
+                john.getEmail(),
+                hiker.getId(),
                 "Quite nice-looking",
                 "The art is nice. I wish the description would elaborate a bit more."
         );
-        commentService.leaveComment(
-                rankService.getRank(hikerHans),
+        commentService.createComment(
+                hans.getEmail(),
+                hiker.getId(),
                 "Bad color",
                 "The color on the art does not match the theme at all. Howerver, the image is nice on its own"
         );
 
-        commentService.leaveComment(
-                rankService.getRank(horseJohn),
+        commentService.createComment(
+                john.getEmail(),
+                horse.getId(),
                 "Horses!",
                 "I do not like horses. I hope other people can have use for this card insted :-)"
         );
 
-        commentService.leaveComment(
-                rankService.getRank(calmGolemJohn),
+        commentService.createComment(
+                john.getEmail(),
+                calmGolem.getId(),
                 "So relaxing",
                 "I really enjoy looking at this card. It makes me happy"
         );
-        commentService.leaveComment(
-                rankService.getRank(calmGolemMarcin),
+        commentService.createComment(
+                marcin.getEmail(),
+                calmGolem.getId(),
                 "Fascinating",
                 "I find myself thinking about the portrayed creature all the time. I am fascinated by it"
         );

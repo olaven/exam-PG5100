@@ -53,6 +53,15 @@ public class RankService {
         }
     }
 
+    public long getRankCount(Long itemId) {
+
+        Query query = entityManager.createNamedQuery(Rank.GET_COUNT_BY_ITEM_ID, Long.class);
+        query.setParameter("itemId", itemId);
+
+        long result = (Long) query.getSingleResult();
+        return result;
+    }
+
 
     public Rank getRank(String userEmail, Long itemId) {
 

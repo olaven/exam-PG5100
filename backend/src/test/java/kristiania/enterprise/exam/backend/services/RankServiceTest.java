@@ -132,4 +132,19 @@ class RankServiceTest extends ServiceTestBase {
         double average = rankService.getAverageRank(item.getId());
         assertEquals(3.0, average);
     }
+
+    @Test
+    public void testCanGetCountOfRanks() {
+
+        Item item = itemService.getItem(createTestItem());
+
+        UserEntity user1 = userService.getUser(createTestUser());
+        UserEntity user2 = userService.getUser(createTestUser());
+
+        rankService.rankItem(item, user1, 1);
+        rankService.rankItem(item, user2, 3);
+
+        long count = rankService.getRankCount(item.getId());
+        assertEquals(2, count);
+    }
 }

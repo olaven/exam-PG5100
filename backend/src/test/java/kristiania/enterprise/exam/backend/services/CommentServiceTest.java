@@ -20,7 +20,7 @@ class CommentServiceTest extends ServiceTestBase {
     @Autowired
     private RankService rankService;
 
-    @Test
+  /*  @Test
     public void testCanLeaveComment() {
 
         RankId rankId = createTestRank();
@@ -28,7 +28,7 @@ class CommentServiceTest extends ServiceTestBase {
         Rank rankBefore = rankService.getRank(rankId);
         assertNull(rankBefore.getComment());
 
-        commentService.leaveComment(rankBefore, "test title", "test content");
+        commentService.createNewComment(rankBefore, "test title", "test content");
 
         Rank rankAfter = rankService.getRank(rankId);
         assertNotNull(rankAfter.getComment());
@@ -41,18 +41,53 @@ class CommentServiceTest extends ServiceTestBase {
         String originalContent = "original content";
 
         Rank rank = rankService.getRank(createTestRank());
-        Long id = commentService.leaveComment(rank, originalTitle, originalContent);
+        commentService.createNewComment(rank, originalTitle, originalContent);
 
-        assertEquals(originalTitle, commentService.getComment(id).getTitle());
-        assertEquals(originalContent, commentService.getComment(id).getContent());
+        assertEquals(originalTitle, commentService.getComment(rank).getTitle());
+        assertEquals(originalContent, commentService.getComment(rank).getContent());
 
         // UPDATING:
         String updatedTitle = "updated title";
         String updatedContent = "updated content";
 
-        commentService.updateComment(id, updatedTitle, updatedContent);
+        commentService.updateComment(rank, updatedTitle, updatedContent);
 
-        assertEquals(updatedTitle, commentService.getComment(id).getTitle());
-        assertEquals(updatedContent, commentService.getComment(id).getContent());
+        assertEquals(updatedTitle, commentService.getComment(rank).getTitle());
+        assertEquals(updatedContent, commentService.getComment(rank).getContent());
+    }
+*/
+    @Test
+    public void testCreatesNewCommentIfNotPresent() {
+
+        Rank rank = rankService.getRank(createTestRank());
+        assertNull(commentService.getComment(rank));
+
+        // slightly convoluted, but using userEmail and itemId makes for cleaner frontend-controller
+        String userEmail = rank.getRankId().getUser().getEmail();
+        Long itemId = rank.getRankId().getItem().getId();
+
+        commentService.createComment(userEmail, itemId, "test title", "test content");
+        assertNotNull(commentService.getComment(rank));
+    }
+
+    @Test
+    public void testUpdatesCommentIfAlreadyPresent() {
+
+        Rank rank = rankService.getRank(createTestRank());
+        String userEmail = rank.getRankId().getUser().getEmail();
+        Long itemId = rank.getRankId().getItem().getId();
+
+
+        String updatedTitle = "updated title";
+        String updatedContent = "updatedContent";
+
+
+        commentService.createComment(userEmail, itemId, "original title", "original content");
+        assertNotEquals(updatedTitle, commentService.getComment(rank).getTitle());
+        assertNotEquals(updatedContent, commentService.getComment(rank).getContent());
+
+        commentService.createComment(userEmail, itemId, updatedTitle, updatedContent);
+        assertEquals(updatedTitle, commentService.getComment(rank).getTitle());
+        assertEquals(updatedContent, commentService.getComment(rank).getContent());
     }
 }

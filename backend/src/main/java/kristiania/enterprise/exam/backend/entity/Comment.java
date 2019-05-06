@@ -1,15 +1,19 @@
 package kristiania.enterprise.exam.backend.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@NamedQueries(
+        @NamedQuery(
+                name = Comment.GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID,
+                query = "select comment from Comment comment where comment.rank.rankId.user.email = :userEmail and comment.rank.rankId.item.id = :itemId"
+        )
+)
 @Entity
 public class Comment {
 
+    public static final String GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID = "GET_COMMENT_BY_USER_EMAIL_AND_ITEM_ID";
     @Id
     @GeneratedValue
     private Long id;
