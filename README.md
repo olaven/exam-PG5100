@@ -9,7 +9,10 @@ For running frontend-test with docker: `SeleniumDockerIT.java`
 ## Assumptions 
 1. The task mentions popular card games as examples. 
 My assumption is that we are not supposed to model a copy 
-of such a card game, but rather, something _like_ those games 
+of such a card game, but rather, something _like_ those games
+2. It is mentioned that some features are only available to logged-in users. 
+My assumption is that other features are available to everyone. For 
+example, I am assuming that every page-visitor may view items. 
 
 ## Extras
 * The app has support for admin-users 

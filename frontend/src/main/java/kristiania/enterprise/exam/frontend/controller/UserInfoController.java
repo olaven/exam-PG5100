@@ -1,5 +1,8 @@
 package kristiania.enterprise.exam.frontend.controller;
 
+import kristiania.enterprise.exam.backend.entity.UserEntity;
+import kristiania.enterprise.exam.backend.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,7 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /*
-NOTE: This file is copied from:
+NOTE: This file is adapted from:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/14f9b4274a9335c41cfe958833e32ee6bc01737c/intro/spring/security/authorization/src/main/java/org/tsdes/intro/spring/security/authorization/jsf/UserInfoController.java
 */
 
@@ -15,8 +18,25 @@ NOTE: This file is copied from:
 @RequestScoped
 public class UserInfoController {
 
+    @Autowired
+    private UserService userService;
 
     public String getUserName(){
-        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        return getUserDetails().getUsername();
+    }
+
+    public String getFullName() {
+
+        //NOTE: username is an email in application-logic
+        UserEntity user = userService.getUser(getUserName());
+        return user.getGivenName() + " " + user.getFamilyName();
+    }
+
+    private UserDetails getUserDetails() {
+
+        return (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
     }
 }

@@ -1,15 +1,39 @@
 <ui:composition template="./layout.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:sec="http://www.springframework.org/security/tags">
+                xmlns:sec="http://www.springframework.org/security/tags" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">Welcome</ui:define>
     <ui:define name="content">
+
         <sec:authorize access="isAuthenticated()">
-            <h2>Home page</h2>
+            <h2>Welcome, #{userInfoController.fullName}</h2>
         </sec:authorize>
-        <sec:authorize access="isAnonymous()">
-            <p>You must log in</p>
-        </sec:authorize>
+
+        <div>
+            <c:set var="categories" value="${itemController.allCategories}"/>
+
+            <h:form>
+                <h:selectOneMenu id="locationSelect" value="#{itemController.selectedCategory}">
+                    <f:selectItem itemLabel="Select a location..." />
+                    <f:selectItems value="#{categories}" var="category" itemLabel="#{category}" itemValue="#{category}"/>
+                </h:selectOneMenu>
+                <h:commandButton id="doFilter" value="Filter" action="#{itemController.filterItems}"/> <!-- was p:commandBUtton. May be relevante -->
+            </h:form>
+        </div>
+
+        <ui:repeat value="#{itemController.homePageItems}" var="item">
+            <h2>#{item.title}</h2>
+            <h:outputText value="#{item.description}"/> <br/>
+            <h:outputText value="#{rankController.getGetAverageScoreOf(item.id)}"/> <br/>
+            <h:form>
+                <h:commandButton
+                        value="More details"
+                        action="#{itemController.goToItemPage(item.id)}"
+                        class="goToItemPageButton btn btn-primary"/>
+            </h:form>
+            <hr/>
+        </ui:repeat>
     </ui:define>
 
 </ui:composition>

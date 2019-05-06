@@ -45,8 +45,12 @@ public class RankService {
         Query query = entityManager.createNamedQuery(Rank.GET_AVERAGE_RANK_OF_ITEM, Double.class);
         query.setParameter("itemId", itemId);
 
-        double result = (Double) query.getSingleResult();
-        return result;
+        try {
+            double result = (Double) query.getSingleResult();
+            return result;
+        } catch (NullPointerException e) {
+            return 0; // in the case that there are no ranks registered on an item
+        }
     }
 
 

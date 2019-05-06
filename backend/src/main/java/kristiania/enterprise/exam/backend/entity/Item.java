@@ -7,8 +7,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = Item.GET_ALL_ITEMS, query = "select item from Item item")
+})
 @Entity
 public class Item {
+
+    public static final String GET_ALL_ITEMS = "GET_ALL_ITEMS";
 
     @Id
     @GeneratedValue
@@ -25,7 +30,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Rank> ranks;
 
     public Item() {
