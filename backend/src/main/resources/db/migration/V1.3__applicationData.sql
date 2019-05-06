@@ -2,7 +2,7 @@
 drop table if exists item;
 drop table if exists item_ranks;
 drop table if exists rank;
-drop table if exists user_entity;
+drop table if exists user_entity cascade;
 drop table if exists user_entity_roles;
 create table item (id bigint not null, category varchar(255), description varchar(355), title varchar(55), primary key (id));
 create table item_ranks (item_id bigint not null, ranks_item_id bigint not null, ranks_user_email varchar(255) not null);

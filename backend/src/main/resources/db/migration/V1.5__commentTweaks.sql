@@ -1,8 +1,8 @@
-drop table if exists comment;
-drop table if exists item;
+drop table if exists comment cascade;
+drop table if exists item cascade;
 drop table if exists item_ranks;
 drop table if exists rank;
-drop table if exists user_entity;
+drop table if exists user_entity cascade;
 drop table if exists user_entity_roles;
 drop sequence if exists hibernate_sequence;
 create sequence hibernate_sequence start with 1 increment by 1;
