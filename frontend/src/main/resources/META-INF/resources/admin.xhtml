@@ -7,7 +7,7 @@
     <ui:define name="title">Admin</ui:define>
     <ui:define name="content">
 
-        <!-- access is already controlled in WebSecurityConfig. This is just here as an extra check -->
+        <!-- access is already controlled in WebSecurityConfig. This is just an extra check -->
         <sec:authorize access="hasAuthority('ADMIN')">
 
             <h2>Admin page</h2>
@@ -40,6 +40,17 @@
                         value="Title, description and category must be entered"
                         rendered="${!empty param['error']}"/>
             </h:form>
+
+            <h3>Remove items:</h3>
+            <ui:repeat value="#{itemController.allItems}" var="item">
+                <h:form>
+                    <h:outputText value="#{item.title}"/>
+                    <h:commandButton
+                            value="Remove item"
+                            action="#{adminController.removeItem(item.id)}"
+                            class="adminRemoveItemButton btn btn-danger"/>
+                </h:form>
+            </ui:repeat>
 
         </sec:authorize>
     </ui:define>

@@ -44,13 +44,14 @@ is a later requirement.
 ## Extras
 * The app has support for admin-users 
 * An admin-user may add new items. This is documented in `SeleniumTestBase`, `testCanAddItem`
+* An admin-user may remove items. This is documented in `SeleniumTestBase`, `testCanRemoveItem`
 * A user may delete their ranking on an item. This is documented in `SeleniumTestBase`, `testCanRemoveRank`
-* The app is running on Travis. The travis-page is private, as this is an exam. However, the link-image in 
-the title is hopefully evidence enough.
+* The app is running on Travis. The travis-page is private, as this is an exam. However, the image-link in 
+the title of this document is hopefully evidence enough.
 * I have used Docker and Docker-Compose to run the project in production mode. To start this up, 
 run the following in the root-directory: `mvn clean package && docker-compose up`
-* I am using bootstrap for some CSS-styles
-* Selenium-tests can be run in Docker using `SeleniumDockerIT`, as well as locally 
+* Selenium-tests can be run in Docker using `SeleniumDockerIT`, as well as locally
+* I am using bootstrap for some CSS-styles 
 
 
 
@@ -61,4 +62,3 @@ To build and run production-version:
 * The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com)
 To deploy new version: "cd frontend && mvn clean package heroku:deploy -Dheroku.logProgress=true"
 To check dependencies: "mvn verify -P dependency-check"
-Start Application with docker: "docker build frontend/ -t docker-frontend && docker run exam-frontend -p 8080:8080"

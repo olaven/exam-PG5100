@@ -60,4 +60,10 @@ public class AdminController {
     public void setCurrentCategory(String currentCategory) {
         this.currentCategory = currentCategory;
     }
+
+    public String removeItem(Long itemId) {
+
+        itemService.removeItem(itemId);
+        return "/admin.jsf?faces-redirect=true";
+    }
 }

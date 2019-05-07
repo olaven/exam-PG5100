@@ -36,6 +36,28 @@ public class ItemService {
         return item.getId();
     }
 
+    @Transactional
+    public void removeItem(Long itemId) {
+
+        Item item = entityManager.find(Item.class, itemId);
+
+        /*
+        NOTE: This solution of manually removing orphans is suboptimal.
+        However, I stumbled upon many bugs/issues using orphanRemoval / cascade with @OneToMany.
+        In the end, I decided that deleting explicitly was the cleanest, available solution.
+
+        unsolved issue:
+        https://hibernate.atlassian.net/browse/HHH-6709
+        */
+        item.getRanks().forEach(rank -> {
+            if(rank.getComment() != null)
+                entityManager.remove(rank.getComment());
+            entityManager.remove(rank);
+        });
+
+        entityManager.remove(item);
+    }
+
     public Item getItem(Long id) {
 
         return entityManager.find(Item.class, id);

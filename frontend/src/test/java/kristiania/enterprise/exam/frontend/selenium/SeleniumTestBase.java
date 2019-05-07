@@ -392,14 +392,14 @@ public abstract class SeleniumTestBase {
     @Test
     public void testShowsCorrectRankCount() {
 
-        int n = 3;
+        int n = 2;
         home = createNewUser(getUniqueId(), "given", "family", "12345");
 
         //ranking n items
         for (int i = 0; i < n; i++) {
 
             ItemPO item = home.goToItemPage(i);
-            item.setScore(2);
+            item.setScore(5);
             home = item.toHome();
         }
 
@@ -447,5 +447,18 @@ public abstract class SeleniumTestBase {
         admin.addItem("title", "", Category.BLUE);
 
         assertTrue(admin.addItemErrorDisplayed());
+    }
+
+    @Test
+    public void testCanRemoveItem() {
+
+        home = createAdminUser();
+        AdminPO admin = home.goToAdmin();
+
+        int before = itemService.getItemsSortedByAverageScore(null).size();
+        admin.removeItemAt(0);
+        int after = itemService.getItemsSortedByAverageScore(null).size();
+
+        assertEquals(before - 1, after);
     }
 }

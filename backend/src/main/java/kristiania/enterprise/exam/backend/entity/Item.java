@@ -1,6 +1,8 @@
 package kristiania.enterprise.exam.backend.entity;
 
 import kristiania.enterprise.exam.backend.Category;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,7 +32,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "rankId.item")
     private List<Rank> ranks;
 
     public Item() {

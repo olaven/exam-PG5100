@@ -41,11 +41,6 @@ public class ItemController implements Serializable {
     }
 
 
-    public List<Item> getHomePageItems() {
-
-        return homePageItems;
-    }
-
     public String goToItemPage(Long id) {
 
         return String.format("item.jsf?itemId=%d&faces-redirect=true", id);
@@ -56,11 +51,23 @@ public class ItemController implements Serializable {
         return itemService.getItem(id);
     }
 
+    public List<Item> getAllItems() {
+
+        return itemService.getItemsSortedByAverageScore(null);
+    }
+
+    public List<Item> getHomePageItems() {
+
+        return homePageItems;
+    }
+
     public String getSelectedCategory() {
+        
         return selectedCategory;
     }
 
     public void setSelectedCategory(String selectedCategory) {
+        
         this.selectedCategory = selectedCategory;
     }
 

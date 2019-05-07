@@ -2,6 +2,7 @@ package kristiania.enterprise.exam.frontend.selenium.po;
 
 import kristiania.enterprise.exam.backend.Category;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class AdminPO extends LayoutPO {
@@ -24,6 +25,16 @@ public class AdminPO extends LayoutPO {
         select.selectByVisibleText(category.toString());
 
         clickAndWait("adminAddItemButton");
+    }
+
+    public void removeItemAt(int index) {
+
+        WebElement button = getDriver()
+                .findElements(By.className("adminRemoveItemButton"))
+                .get(index);
+
+        button.click();
+        waitForPageToLoad();
     }
 
     public boolean addItemErrorDisplayed() {
