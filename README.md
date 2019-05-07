@@ -5,9 +5,9 @@
 * I have configured a maven-plugin to build a Docker-image in the "package"-phase. Will be visible in "verify"-logging.  
 
 ## Entry points 
-For starting in dev mode: `LocalApplicationRunner.java`
-For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
-For running frontend-test with docker: `SeleniumDockerIT.java`
+* For starting in dev mode: `LocalApplicationRunner.java`
+* For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
+* For running frontend-test with docker: `SeleniumDockerIT.java`
 
 ## Tests from R4
 * Sorting is tested in: SeleniumTestBase line: 143
