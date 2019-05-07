@@ -1,14 +1,43 @@
 <ui:composition template="layout.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:sec="http://www.springframework.org/security/tags">
+                xmlns:sec="http://www.springframework.org/security/tags" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="title">Admin</ui:define>
     <ui:define name="content">
 
+        <!-- access is already controlled in WebSecurityConfig. This is just here as an extra check -->
         <sec:authorize access="hasAuthority('ADMIN')">
 
             <h2>Admin page</h2>
+            <h3>Add new item: </h3>
+            <h:form prependId="false">
+                <h:outputText value="Title:"/>
+                <h:inputText
+                        id="adminTitleInput"
+                        value="#{adminController.currentTitle}"
+                        class="form-control"/>
+                <h:outputText value="Description"/>
+                <h:inputTextarea
+                        id="adminDescriptionInput"
+                        value="#{adminController.currentDescription}"
+                        class="form-control"/>
+
+                <c:set var="categories" value="#{itemService.allCategories}"/>
+                <h:selectOneMenu id="categorySelect" value="#{adminController.currentCategory}">
+                    <f:selectItem itemLabel="Select a category..." />
+                    <f:selectItems value="#{categories}" var="category" itemLabel="#{category}" itemValue="#{category}"/>
+                </h:selectOneMenu>
+
+                <h:commandButton
+                        id="adminAddItemButton"
+                        action="#{adminController.addItem}"
+                        value="Add item"/>
+
+                <h:outputLabel value="Title, description and category must be entered"
+                               rendered="${!empty param['error']}"/>
+            </h:form>
 
         </sec:authorize>
     </ui:define>

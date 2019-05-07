@@ -4,6 +4,7 @@ import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -11,7 +12,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@SessionScoped
+@RequestScope
 @Named
 public class ItemController implements Serializable {
 
@@ -25,6 +26,19 @@ public class ItemController implements Serializable {
     private void init() {
 
         homePageItems = itemService.getItemsSortedByAverageScore(null);
+    }
+
+
+    public String filterItems() {
+
+        // i.e. some category was chosen
+        if (!selectedCategory.isEmpty()) {
+            homePageItems = itemService.getItemsSortedByAverageScore(Category.valueOf(selectedCategory));
+        } else {
+            homePageItems = itemService.getItemsSortedByAverageScore(null);
+        }
+
+        return "/search.jsf?faces-redirect=true";
     }
 
 
@@ -51,17 +65,6 @@ public class ItemController implements Serializable {
         this.selectedCategory = selectedCategory;
     }
 
-    public String filterItems() {
-
-        // i.e. some category was chosen
-        if (!selectedCategory.isEmpty()) {
-            homePageItems = itemService.getItemsSortedByAverageScore(Category.valueOf(selectedCategory));
-        } else {
-            homePageItems = itemService.getItemsSortedByAverageScore(null);
-        }
-
-        return "/search.jsf?faces-redirect=true";
-    }
 
     public List<Category> getAllCategories() {
 

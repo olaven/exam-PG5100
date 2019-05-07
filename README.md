@@ -9,6 +9,19 @@
 * For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
 * For running frontend-test with docker: `SeleniumDockerIT.java`
 
+## Users
+
+When testing the application, the following user is recommended: 
+* username: dev@mail.com   
+* password: dev
+ 
+An admin-user is also added, both in dev- and prod. mode. 
+* username: admin@mail.com
+* password: admin  
+
+Several other users and items are added in test-mode. The full list is 
+available in `DefaultDataInitializer.java` 
+
 ## Tests from R4
 * Sorting is tested in: SeleniumTestBase line: 143
 * Filtering is tested in: SeleniumTestBase line: 153
