@@ -3,6 +3,8 @@
 
 ## General notes
 * I have configured a maven-plugin to build a Docker-image in the "package"-phase. Will be visible in "verify"-logging.  
+* `mvn clean verify` will run frontend-tests locally _and_ in docker. Normally, this is would usually be unnecessary, 
+but I am leaving it that way because this is an exam, and I want to show as much as possible.  
 
 ## Entry points 
 * For starting in dev mode: `LocalApplicationRunner.java`

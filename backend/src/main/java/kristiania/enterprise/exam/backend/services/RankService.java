@@ -1,6 +1,9 @@
 package kristiania.enterprise.exam.backend.services;
 
-import kristiania.enterprise.exam.backend.entity.*;
+import kristiania.enterprise.exam.backend.entity.Item;
+import kristiania.enterprise.exam.backend.entity.Rank;
+import kristiania.enterprise.exam.backend.entity.RankId;
+import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

@@ -1,7 +1,6 @@
 package kristiania.enterprise.exam.frontend.selenium.po;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;

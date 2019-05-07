@@ -1,8 +1,6 @@
 package kristiania.enterprise.exam.frontend.selenium.po;
 
 
-import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
-
 public class ProfilePO extends LayoutPO {
 
     public ProfilePO(PageObject other) {

@@ -5,7 +5,6 @@ import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
 import kristiania.enterprise.exam.backend.services.UserService;
 import kristiania.enterprise.exam.frontend.selenium.po.*;
-import org.h2.index.Index;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;

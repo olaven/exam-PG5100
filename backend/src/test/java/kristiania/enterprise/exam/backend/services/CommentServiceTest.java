@@ -1,6 +1,5 @@
 package kristiania.enterprise.exam.backend.services;
 
-import kristiania.enterprise.exam.backend.entity.Comment;
 import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.Rank;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
