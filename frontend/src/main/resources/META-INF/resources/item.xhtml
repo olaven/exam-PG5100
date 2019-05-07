@@ -4,16 +4,16 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://java.sun.com/jsf/html">
 
-    <ui:define name="title">Welcome</ui:define>
+    <ui:define name="title">Item</ui:define>
     <ui:define name="content">
 
         <c:set var="id" value="#{param['itemId']}"/>
         <c:set var="item" value="#{itemController.getItem(id)}"/>
 
-        <h1> #{item.title} - Item details</h1>
+        <h1 id="itemHeader"> #{item.title} - Item details</h1>
         <h:outputText value="#{item.description}"/>
         <br/>
-        Rating: #{rankController.getGetAverageScoreOf(item.id)} based on #{rankController.getGetRateCountOf(item.id)} users.
+        <h:outputText id="itemRating" value="Rating: #{rankController.getGetAverageScoreOf(item.id)} based on #{rankController.getGetRateCountOf(item.id)} users."/>
         <br/>
 
         <sec:authorize access="isAuthenticated()">
@@ -21,17 +21,18 @@
             <h2>Set your score:</h2>
 
             <h:outputText
-                    value="Your current ranking: #{rankController.getCurrentScore(item.id)}"
+                    id="itemScore"
+                    value="Your current score: #{rankController.getCurrentScore(item.id)}"
                     rendered="#{rankController.hasRanked(item.id)}"/>
 
-            <h:form id="setScoreForm">
+            <h:form id="scoreForm" prependId="false">
                 <input type="hidden" name="itemId" value="#{param['itemId']}" />
                 <c:set var="itemId" value="#{param['itemId']}"/>
-                <p:commandButton class="setScoreButton btn btn-primary" value="1" action="#{rankController.setNewScore(1, itemId)}"/>
-                <p:commandButton class="setScoreButton btn btn-primary" value="2" action="#{rankController.setNewScore(2, itemId)}"/>
-                <p:commandButton class="setScoreButton btn btn-primary" value="3" action="#{rankController.setNewScore(3, itemId)}"/>
-                <p:commandButton class="setScoreButton btn btn-primary" value="4" action="#{rankController.setNewScore(4, itemId)}"/>
-                <p:commandButton class="setScoreButton btn btn-primary" value="5" action="#{rankController.setNewScore(5, itemId)}"/>
+                <p:commandButton class="scoreFormButton btn btn-primary" value="1" action="#{rankController.setNewScore(1, itemId)}"/>
+                <p:commandButton class="scoreFormButton btn btn-primary" value="2" action="#{rankController.setNewScore(2, itemId)}"/>
+                <p:commandButton class="scoreFormButton btn btn-primary" value="3" action="#{rankController.setNewScore(3, itemId)}"/>
+                <p:commandButton class="scoreFormButton btn btn-primary" value="4" action="#{rankController.setNewScore(4, itemId)}"/>
+                <p:commandButton class="scoreFormButton btn btn-primary" value="5" action="#{rankController.setNewScore(5, itemId)}"/>
             </h:form>
 
 
@@ -39,18 +40,18 @@
 
             <c:choose>
                 <c:when test="${rankController.hasRanked(item.id)}">
-                    <h:form id="createCommentForm">
+                    <h:form id="commentForm" prependId="false">
                         <input type="hidden" name="itemId" value="#{param['itemId']}" />
                         <c:set var="itemId" value="#{param['itemId']}"/>
                         <h:outputLabel value="title:"/>
-                        <h:inputText value="#{commentController.currentTitle}" id="createCommentTitle"/>
+                        <h:inputText id="commentFormTitle" value="#{commentController.currentTitle}"/>
                         <br/>
 
                         <h:outputLabel value="content:"/>
-                        <h:inputTextarea value="#{commentController.currentContent}" id="createCommentContent"/>
+                        <h:inputTextarea id="commentFormContent" value="#{commentController.currentContent}"/>
                         <br/>
 
-                        <h:commandButton value="Create comment" action="#{commentController.createNewComment(itemId)}" id="createCommentButton"/>
+                        <h:commandButton id="commentFormButton" value="Create comment" action="#{commentController.createNewComment(itemId)}"/>
                         <h:outputLabel value="Comment failed. Make sure to have content in both boxes."
                                        rendered="${!empty param['error']}"/>
                     </h:form>
@@ -63,11 +64,15 @@
             </c:choose>
         </sec:authorize>
 
-        <ui:repeat value="#{commentController.getCommentByItem(item.id)}" var="comment">
-            <h3>#{comment.title} - #{comment.rank.score}</h3>
-            <h:outputText value="#{comment.content}"/> <br/>
-            <h:outputText value="- #{comment.rank.rankId.user.email}"/>
-        </ui:repeat>
+        <div id="itemComments">
+            <ui:repeat value="#{commentController.getCommentByItem(item.id)}" var="comment">
+                <div class="itemComment">
+                    <h3>#{comment.title} - #{comment.rank.score}</h3>
+                    <h:outputText value="#{comment.content}"/> <br/>
+                    <h:outputText value="- #{comment.rank.rankId.user.email}"/>
+                </div>
+            </ui:repeat>
+        </div>
     </ui:define>
 </ui:composition>
 

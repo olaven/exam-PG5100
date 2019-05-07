@@ -1,4 +1,4 @@
-package kristiania.enterprise.exam.frontend.selenium;
+package kristiania.enterprise.exam.frontend.selenium.po;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

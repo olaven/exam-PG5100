@@ -23,16 +23,18 @@
         </div>
 
         <ui:repeat value="#{itemController.homePageItems}" var="item">
-            <h2>#{item.title}</h2>
-            <h:outputText value="#{item.description}"/> <br/>
-            <h:outputText value="#{rankController.getGetAverageScoreOf(item.id)}"/> <br/>
-            <h:form>
-                <h:commandButton
-                        value="More details"
-                        action="#{itemController.goToItemPage(item.id)}"
-                        class="goToItemPageButton btn btn-primary"/>
-            </h:form>
-            <hr/>
+            <div class="homeItem">
+                <h2>#{item.title}</h2>
+                <h:outputText value="#{item.description}"/> <br/>
+                <h:outputText value="#{rankController.getGetAverageScoreOf(item.id)}"/> <br/>
+                <h:form>
+                    <h:commandButton
+                            value="More details"
+                            action="#{itemController.goToItemPage(item.id)}"
+                            class="goToItemPageButton btn btn-primary"/>
+                </h:form>
+                <hr/>
+            </div>
         </ui:repeat>
     </ui:define>
 

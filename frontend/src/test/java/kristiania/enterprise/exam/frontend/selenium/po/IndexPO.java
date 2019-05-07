@@ -1,9 +1,12 @@
 package kristiania.enterprise.exam.frontend.selenium.po;
 
-import kristiania.enterprise.exam.frontend.selenium.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
+import static junit.framework.TestCase.assertTrue;
 
 /*
 NOTE: Parts of this file is copied from:
@@ -30,5 +33,19 @@ public class IndexPO extends LayoutPO {
         String string = getDriver().getTitle();
         System.out.println(string);
         return getDriver().getTitle().contains("Welcome");
+    }
+
+    public ItemPO goToItemPage(int index) {
+
+        getDriver()
+                .findElements(By.xpath("//div[@class='homeItem']//input[@type='submit']"))
+                .get(index)
+                .click();
+
+        waitForPageToLoad();
+        ItemPO po = new ItemPO(this);
+        assertTrue(po.isOnPage());
+
+        return po;
     }
 }
