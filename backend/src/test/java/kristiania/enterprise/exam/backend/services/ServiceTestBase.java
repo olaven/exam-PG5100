@@ -66,7 +66,7 @@ public class ServiceTestBase {
     protected RankId createTestRank() {
 
         Item item = itemService.getItem(createTestItem());
-        UserEntity user = userService.getUser(createTestUser());
+        UserEntity user = userService.getUser(createTestUser(), false);
         int score = new Random().nextInt(5) + 1;
 
         return rankService.createRank(item, user, score);

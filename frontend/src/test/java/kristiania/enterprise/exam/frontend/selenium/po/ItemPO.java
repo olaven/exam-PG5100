@@ -55,6 +55,15 @@ public class ItemPO extends LayoutPO {
         clickAndWait("removeRankButton");
     }
 
+    public boolean displayingAlreadyInCollection() {
+        return elementIsOnPage("alreadyInCollectionMessage");
+    }
+
+    public void addToCollection() {
+
+        clickAndWait("addToCollectionButton");
+    }
+
     public void setScore(int score) {
 
         List<WebElement> buttons = getDriver().findElements(By.className("scoreFormButton"));

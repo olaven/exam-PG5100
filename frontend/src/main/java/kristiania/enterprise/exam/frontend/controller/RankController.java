@@ -44,7 +44,7 @@ public class RankController implements Serializable {
 
         String userEmail = userController.getEmail();
 
-        UserEntity user = userService.getUser(userEmail);
+        UserEntity user = userService.getUser(userEmail, false);
         Item item = itemService.getItem(itemId);
         rankService.rankItem(item, user, score);
 

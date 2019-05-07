@@ -31,8 +31,8 @@ public class ResetService {
 
         deleteEntities(Comment.class);
         deleteEntities(Rank.class);
-        deleteEntities(Item.class);
         deleteEntities(UserEntity.class);
+        deleteEntities(Item.class);
     }
 
     private void deleteEntities(Class<?> entity){

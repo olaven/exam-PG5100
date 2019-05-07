@@ -41,7 +41,7 @@ public class UserEntityServiceTest extends ServiceTestBase {
         String email = createTestUser();
         assertEquals(0, userService.getRankCount(email));
 
-        UserEntity user = userService.getUser(email);
+        UserEntity user = userService.getUser(email, false);
 
         Item item1 = itemService.getItem(createTestItem());
         Item item2 = itemService.getItem(createTestItem());

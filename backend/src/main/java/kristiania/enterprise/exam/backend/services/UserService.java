@@ -1,5 +1,6 @@
 package kristiania.enterprise.exam.backend.services;
 
+import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /*
  * NOTE: This file is copied from:
@@ -22,11 +25,15 @@ import java.util.Collections;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
-    private EntityManager entityManager;
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ItemService itemService;
+
+
 
     public boolean createUser(String email, String givenName, String familyName, String password) {
 
@@ -47,6 +54,7 @@ public class UserService {
         user.setFamilyName(familyName);
         user.setPassword(hashedPassword);
         user.setRanks(new ArrayList<>());
+        user.setCollection(new ArrayList<>());
         user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
 
@@ -54,24 +62,66 @@ public class UserService {
         return true;
     }
 
-    public UserEntity getUser(String email) {
+    public UserEntity getUser(String email, boolean withCollection) {
 
-        return entityManager.find(UserEntity.class, email);
+        UserEntity user = entityManager.find(UserEntity.class, email);
+        if (withCollection) {
+            user.getCollection().size();
+        }
+
+        return user;
+    }
+
+    public void addToCollection(String email, Long itemId) {
+
+        UserEntity user = getUser(email, true);
+        Item item = entityManager.find(Item.class, itemId);
+
+        List<Item> collection = user.getCollection();
+        if (collection.contains(item)) {
+            throw new IllegalArgumentException("Item already added to collection.");
+        }
+
+        collection.add(item);
+        entityManager.merge(user);
+    }
+
+    public void removeFromCollection(String email, Long itemId) {
+
+        UserEntity user = getUser(email, true);
+        Item item = itemService.getItem(itemId);
+
+        user.getCollection().remove(item);
+        entityManager.merge(user);
+    }
+
+    public List<Item> getCollection(String email) {
+
+        UserEntity user = getUser(email, true);
+        return user.getCollection();
+    }
+
+    public boolean hasItemInCollection(String email, Long itemId) {
+
+        UserEntity user = getUser(email, true);
+        return user.getCollection().stream()
+                .anyMatch(item -> item.getId().equals(itemId));
     }
 
     public int getRankCount(String email) {
 
-        return getUser(email)
+        return getUser(email, false)
                 .getRanks()
                 .size();
     }
 
     public void updateUser(String email, String givenName, String familyName) {
 
-        UserEntity user = getUser(email);
+        UserEntity user = getUser(email, false);
         user.setGivenName(givenName);
         user.setFamilyName(familyName);
 
         entityManager.merge(user);
     }
+
 }

@@ -37,6 +37,10 @@ public class UserEntity {
     @OneToMany(mappedBy = "rankId.user")
     private List<Rank> ranks;
 
+    @NotNull
+    @ManyToMany
+    private List<Item> collection;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
@@ -84,6 +88,14 @@ public class UserEntity {
 
     public void setRanks(List<Rank> ranks) {
         this.ranks = ranks;
+    }
+
+    public List<Item> getCollection() {
+        return collection;
+    }
+
+    public void setCollection(List<Item> collection) {
+        this.collection = collection;
     }
 
     public Set<String> getRoles() {

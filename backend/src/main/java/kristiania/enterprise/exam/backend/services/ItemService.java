@@ -2,6 +2,7 @@ package kristiania.enterprise.exam.backend.services;
 
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
+import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class ItemService {
 
     @Autowired
     private RankService rankService;
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public Long createItem(String title, String description, Category category) {
@@ -54,6 +57,7 @@ public class ItemService {
                 entityManager.remove(rank.getComment());
             entityManager.remove(rank);
         });
+
 
         entityManager.remove(item);
     }

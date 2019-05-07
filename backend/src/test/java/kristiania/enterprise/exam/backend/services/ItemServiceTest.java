@@ -28,13 +28,13 @@ class ItemServiceTest extends ServiceTestBase {
 
         for (int i = 0; i < 5; i++) {
 
-            UserEntity user = userService.getUser(createTestUser());
+            UserEntity user = userService.getUser(createTestUser(), false);
             rankService.rankItem(popular, user, 5);
         }
 
         for (int i = 0; i < 3; i++) {
 
-            UserEntity user = userService.getUser(createTestUser());
+            UserEntity user = userService.getUser(createTestUser(), false);
             rankService.rankItem(moderate, user, 3);
         }
 
@@ -91,7 +91,7 @@ class ItemServiceTest extends ServiceTestBase {
     public void testRemovingGetsRidOfOrphans() {
 
         Item item = itemService.getItem(createTestItem());
-        UserEntity user = userService.getUser(createTestUser());
+        UserEntity user = userService.getUser(createTestUser(), false);
 
         RankId rankId = rankService.createRank(item, user, 3);
 

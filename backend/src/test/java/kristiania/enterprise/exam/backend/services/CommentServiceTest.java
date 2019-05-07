@@ -66,7 +66,7 @@ class CommentServiceTest extends ServiceTestBase {
         for (int i = 0; i < n; i++) {
 
             String userEmail = createTestUser();
-            UserEntity user = userService.getUser(userEmail);
+            UserEntity user = userService.getUser(userEmail, false);
 
             rankService.rankItem(item, user, 4);
             commentService.createComment(userEmail, itemId, "comment title", "comment content");

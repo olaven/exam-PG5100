@@ -5,12 +5,10 @@ import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
 import kristiania.enterprise.exam.backend.services.UserService;
 import kristiania.enterprise.exam.frontend.selenium.po.*;
-import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -201,7 +199,7 @@ public abstract class SeleniumTestBase {
     @Test
     public void testDoesShowHeader() {
 
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         String header = item.getHeaderText();
         String suffix = "- Item details";
@@ -214,7 +212,7 @@ public abstract class SeleniumTestBase {
     public void testCommentsVisibleWhenLoggedIn() {
 
         home = createNewUser(getUniqueId(), "given", "family", "1234");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         assertTrue(item.isLoggedIn());
         assertTrue(item.commentsAreDisplayed());
@@ -223,7 +221,7 @@ public abstract class SeleniumTestBase {
     @Test
     public void testCommentsVisibleWhenLoggedOut() {
 
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         assertFalse(item.isLoggedIn());
         assertTrue(item.commentsAreDisplayed());
@@ -232,7 +230,7 @@ public abstract class SeleniumTestBase {
     @Test
     public void testScoringFormNotVisibleWhenLoggedOut() {
 
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         assertFalse(item.isLoggedIn());
         assertFalse(item.scoreFormIsDisplayed());
@@ -242,7 +240,7 @@ public abstract class SeleniumTestBase {
     public void testScoringFormVisibleWhenLoggedIn() {
 
         home = createNewUser(getUniqueId(), "given", "family", "1234");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         assertTrue(item.isLoggedIn());
         assertTrue(item.scoreFormIsDisplayed());
@@ -252,7 +250,7 @@ public abstract class SeleniumTestBase {
     public void testCommentFormNotVisibleBeforeScore() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         assertFalse(item.commentFormIsDisplayed());
     }
@@ -261,7 +259,7 @@ public abstract class SeleniumTestBase {
     public void testCommentFormVisibleAfterScore() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
         item.setScore(3);
 
         assertTrue(item.commentFormIsDisplayed());
@@ -271,7 +269,7 @@ public abstract class SeleniumTestBase {
     public void testScoreGetsUpdated() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         item.setScore(2);
         assertEquals(2, item.getDisplayedScore());
@@ -287,7 +285,7 @@ public abstract class SeleniumTestBase {
     public void testCanRemoveRank() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
         item.setScore(3);
 
         //i.e. the users ranking is registered
@@ -303,7 +301,7 @@ public abstract class SeleniumTestBase {
     public void testCommentGetsAdded() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         int before = item.getCommentCount();
         //NOTE: The user is created above. Therefore, there is no existing rank
@@ -318,7 +316,7 @@ public abstract class SeleniumTestBase {
     public void testErrorOnEmptyTitle() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
         item.setScore(1);
 
 
@@ -331,7 +329,7 @@ public abstract class SeleniumTestBase {
     public void testErrorOnEmptyContent() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
         item.setScore(1);
 
 
@@ -344,7 +342,7 @@ public abstract class SeleniumTestBase {
     public void testUserBehindAverageGetsUpdated() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         int before = item.getUserCountBehindAverage();
         item.setScore(5);
@@ -357,13 +355,24 @@ public abstract class SeleniumTestBase {
     public void testAverageScoreGetsUpdated() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
-        ItemPO item = home.goToItemPage(0);
+        ItemPO item = home.toItemPage(0);
 
         double before = item.getAverageScore();
         item.setScore(5);
         double after = item.getAverageScore();
 
         assertNotEquals(before, after);
+    }
+
+    @Test
+    public void testCanAddToCollection() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.toItemPage(0);
+
+        assertFalse(item.displayingAlreadyInCollection());
+        item.addToCollection();
+        assertTrue(item.displayingAlreadyInCollection());
     }
 
     // Profile page
@@ -400,7 +409,7 @@ public abstract class SeleniumTestBase {
         //ranking n items
         for (int i = 0; i < n; i++) {
 
-            ItemPO item = home.goToItemPage(i);
+            ItemPO item = home.toItemPage(i);
             item.setScore(5);
             home = item.toHome();
         }
@@ -449,6 +458,64 @@ public abstract class SeleniumTestBase {
         assertFalse(profile.errorDisplayed());
         profile.updateUserDetails("updated given", "");
         assertTrue(profile.errorDisplayed());
+    }
+
+    @Test
+    public void testProfileDisplaysCollection() {
+
+        int n = 3;
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+        int before = profile.getCollectionCount();
+
+        home = profile.toHome();
+        ItemPO item = null;
+        for (int i = 0; i < n; i++) {
+            item = home.toItemPage(i);
+            item.addToCollection();
+            home = item.toHome();
+        }
+
+        profile = item.toProfile();
+        assertEquals(before + n, profile.getCollectionCount());
+    }
+
+    @Test
+    public void testCanRemoveFromCollection() {
+
+        // adding one item
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.toItemPage(0);
+        item.addToCollection();
+        ProfilePO profile = item.toProfile();
+
+        assertEquals(1, profile.getCollectionCount());
+
+        // removing it
+        profile.removeFromCollection(0);
+        assertEquals(0, profile.getCollectionCount());
+    }
+
+    @Test
+    public void testEmptyCollectionMessageDisplayedIfNoItems() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+
+        assertTrue(profile.emptyCollectionMessageDisplayed());
+    }
+
+
+    @Test
+    public void testEmptyCollectionMessageNotDisplayedIfItems() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.toItemPage(0);
+
+        item.addToCollection();
+        ProfilePO profile = item.toProfile();
+
+        assertFalse(profile.emptyCollectionMessageDisplayed());
     }
 
     // Admin page:

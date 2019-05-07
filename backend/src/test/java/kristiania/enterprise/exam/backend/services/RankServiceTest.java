@@ -31,7 +31,7 @@ class RankServiceTest extends ServiceTestBase {
         Rank before = rankService.getRank(userEmail, itemId);
         assertNull(before);
 
-        UserEntity user = userService.getUser(userEmail);
+        UserEntity user = userService.getUser(userEmail, false);
         Item item = itemService.getItem(itemId);
 
         rankService.rankItem(item, user, 3);
@@ -47,7 +47,7 @@ class RankServiceTest extends ServiceTestBase {
         String userEmail = createTestUser();
         Long itemId = itemService.createItem("test item", "test item desc", Category.BLUE);
 
-        UserEntity user = userService.getUser(userEmail);
+        UserEntity user = userService.getUser(userEmail, false);
         Item item = itemService.getItem(itemId);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -62,7 +62,7 @@ class RankServiceTest extends ServiceTestBase {
         String userEmail = createTestUser();
         Long itemId = itemService.createItem("test item", "test item desc", Category.BLUE);
 
-        UserEntity user = userService.getUser(userEmail);
+        UserEntity user = userService.getUser(userEmail, false);
         Item item = itemService.getItem(itemId);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -103,9 +103,9 @@ class RankServiceTest extends ServiceTestBase {
 
         Item item = itemService.getItem(createTestItem());
 
-        UserEntity user1 = userService.getUser(createTestUser());
-        UserEntity user2 = userService.getUser(createTestUser());
-        UserEntity user3 = userService.getUser(createTestUser());
+        UserEntity user1 = userService.getUser(createTestUser(), false);
+        UserEntity user2 = userService.getUser(createTestUser(), false);
+        UserEntity user3 = userService.getUser(createTestUser(), false);
 
 
         rankService.rankItem(item, user1, 1);
@@ -122,8 +122,8 @@ class RankServiceTest extends ServiceTestBase {
 
         Item item = itemService.getItem(createTestItem());
 
-        UserEntity user1 = userService.getUser(createTestUser());
-        UserEntity user2 = userService.getUser(createTestUser());
+        UserEntity user1 = userService.getUser(createTestUser(), false);
+        UserEntity user2 = userService.getUser(createTestUser(), false);
 
         rankService.rankItem(item, user1, 1);
         rankService.rankItem(item, user2, 3);
@@ -136,7 +136,7 @@ class RankServiceTest extends ServiceTestBase {
     public void testCanGetCurrentScore() {
 
         Item item = itemService.getItem(createTestItem());
-        UserEntity user = userService.getUser(createTestUser());
+        UserEntity user = userService.getUser(createTestUser(), false);
 
         rankService.rankItem(item, user, 3);
         assertEquals(3, rankService.getCurrentScore(item.getId(), user.getEmail()));
@@ -149,7 +149,7 @@ class RankServiceTest extends ServiceTestBase {
     public void testCanRemoveRank() {
 
         Item item = itemService.getItem(createTestItem());
-        UserEntity user = userService.getUser(createTestUser());
+        UserEntity user = userService.getUser(createTestUser(), false);
 
         RankId rankId = rankService.rankItem(item, user, 2);
         assertNotNull(rankService.getRank(rankId));

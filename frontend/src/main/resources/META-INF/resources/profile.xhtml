@@ -45,6 +45,25 @@
             </h:form>
             <br/>
 
+            <h3>My Collection</h3>
+            <h:outputText
+                    value="Your collection is empty at the moment"
+                    id="emptyCollectionMessage"
+                    rendered="#{userController.collection.size() == 0}"/>
+
+            <ui:repeat value="#{userController.collection}" var="item">
+                <div class="profileCollectionItem">
+                    <h4>#{item.title}</h4>
+                    <h:outputText value="#{item.description}"/>
+                    <h:outputText value="#{item.category}"/>
+                    <h:form>
+                        <h:commandButton
+                                value="Remove from collection"
+                                action="#{userController.removeFromCollection(item.id)}"
+                                class="removeFromCollectionButton btn btn-danger"/>
+                    </h:form>
+                </div>
+            </ui:repeat>
         </sec:authorize>
     </ui:define>
 

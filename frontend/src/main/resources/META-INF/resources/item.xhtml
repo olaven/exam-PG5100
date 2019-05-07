@@ -19,8 +19,20 @@
 
         <sec:authorize access="isAuthenticated()">
 
-            <h2>Set your score:</h2>
+            <c:choose>
+                <c:when test="#{!userController.hasItemInCollection(item.id)}">
+                    <h:form prependId="false">
+                        <input type="hidden" name="itemId" value="#{param['itemId']}" />
+                        <c:set var="itemId" value="#{param['itemId']}"/>
+                        <h:commandButton id="addToCollectionButton" value="Add to collection" action="#{userController.addToCollection(itemId)}" class="btn btn-primary"/>
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    <span id="alreadyInCollectionMessage">This item is already in your <h:outputLink value="profile.jsf">collection</h:outputLink>.</span>
+                </c:otherwise>
+            </c:choose>
 
+            <h2>Set your score:</h2>
             <h:outputText
                     id="itemScore"
                     value="Your current score: #{rankController.getCurrentScore(item.id)}"

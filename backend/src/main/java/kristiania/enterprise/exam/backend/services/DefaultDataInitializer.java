@@ -79,10 +79,10 @@ public class DefaultDataInitializer {
 
 
         // getting users back
-        UserEntity john = userService.getUser("john@williams.com");
-        UserEntity hans = userService.getUser("hans@zimmer.com");
-        UserEntity marcin = userService.getUser("marcin@przybyłowicz.com");
-        UserEntity mikolaj = userService.getUser("mikołaj@stroiński.com");
+        UserEntity john = userService.getUser("john@williams.com", true);
+        UserEntity hans = userService.getUser("hans@zimmer.com", true);
+        UserEntity marcin = userService.getUser("marcin@przybyłowicz.com", true);
+        UserEntity mikolaj = userService.getUser("mikołaj@stroiński.com", true);
 
         // getting items back
         Item elephant = itemService.getItem(elephantId);
@@ -198,6 +198,8 @@ public class DefaultDataInitializer {
                 "Fascinating",
                 "I find myself thinking about the portrayed creature all the time. I am fascinated by it"
         );
+
+        //TODO: Collections (are fetched with boolean above)
     }
 
     private<T> T attempt(Supplier<T> lambda){

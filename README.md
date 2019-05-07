@@ -53,6 +53,10 @@ is a later requirement.
 * An admin-user may remove items. This is documented in `testCanRemoveItem`
 * A user may delete their ranking on an item. This is documented in `testCanRemoveRank`
 * A user may updated his/her name on the profile page. This is documented in `testCanUpdateUserDetails`
+* A user may keep track of a personal collection of cards
+    * add to collection: `testCanAddToCollection`
+    * remove from collection from profile-page: `testCanRemoveFromCollection`
+    * view collection on profile-page: `testProfileDisplaysCollection`
 * The app is running on Travis. The travis-page is private, as this is an exam. However, the image-link in 
 the title of this document is hopefully evidence enough.
 * I have used Docker and Docker-Compose to run the project in production mode. To start this up, 

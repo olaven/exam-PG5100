@@ -40,7 +40,7 @@ public class IndexPO extends LayoutPO {
         return getDriver().getTitle().contains("Welcome");
     }
 
-    public ItemPO goToItemPage(int index) {
+    public ItemPO toItemPage(int index) {
 
         getDriver()
                 .findElements(By.xpath("//div[@class='homeItem']//input[@type='submit']"))
