@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class UserServiceTest extends ServiceTestBase {
+public class UserEntityServiceTest extends ServiceTestBase {
 
     @Test
     public void testCanCreateAUser() {

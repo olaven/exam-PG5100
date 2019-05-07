@@ -33,6 +33,24 @@ public class RankController implements Serializable {
         return rankService.hasRanked(userEmail, itemId);
     }
 
+    public String removeRank(Long itemId) {
+
+        String userEmail = userInfoController.getEmail();
+        rankService.removeRank(userEmail, itemId);
+        return String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
+    }
+
+    public String setNewScore(int score, Long itemId) {
+
+        String userEmail = userInfoController.getEmail();
+
+        UserEntity user = userService.getUser(userEmail);
+        Item item = itemService.getItem(itemId);
+        rankService.rankItem(item, user, score);
+
+        return String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
+    }
+
     public double getGetAverageScoreOf(Long itemId) {
 
         return rankService.getAverageRank(itemId);
@@ -49,14 +67,4 @@ public class RankController implements Serializable {
         return rankService.getCurrentScore(itemId, userEmail);
     }
 
-    public String setNewScore(int score, Long itemId) {
-
-        String userEmail = userInfoController.getEmail();
-
-        UserEntity user = userService.getUser(userEmail);
-        Item item = itemService.getItem(itemId);
-        rankService.rankItem(item, user, score);
-
-        return String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
-    }
 }

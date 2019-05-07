@@ -144,4 +144,17 @@ class RankServiceTest extends ServiceTestBase {
         rankService.rankItem(item ,user, 2);
         assertEquals(2, rankService.getCurrentScore(item.getId(), user.getEmail()));
     }
+
+    @Test
+    public void testCanRemoveRank() {
+
+        Item item = itemService.getItem(createTestItem());
+        UserEntity user = userService.getUser(createTestUser());
+
+        RankId rankId = rankService.rankItem(item, user, 2);
+        assertNotNull(rankService.getRank(rankId));
+
+        rankService.removeRank(user.getEmail(), item.getId());
+        assertNull(rankService.getRank(rankId));
+    }
 }

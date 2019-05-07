@@ -50,6 +50,11 @@ public class ItemPO extends LayoutPO {
                 .size();
     }
 
+    public void deleteRank() {
+
+        clickAndWait("removeRankButton");
+    }
+
     public void setScore(int score) {
 
         List<WebElement> buttons = getDriver().findElements(By.className("scoreFormButton"));

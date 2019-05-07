@@ -5,6 +5,7 @@ import kristiania.enterprise.exam.backend.entity.Rank;
 import kristiania.enterprise.exam.backend.entity.RankId;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -110,6 +111,13 @@ public class RankService {
 
         entityManager.persist(rank);
         return rankId;
+    }
+
+    @Transactional
+    public void removeRank(String userEmail, Long itemId) {
+
+        Rank rank = getRank(userEmail, itemId);
+        entityManager.remove(rank);
     }
 
     private void validateScore(int score) {

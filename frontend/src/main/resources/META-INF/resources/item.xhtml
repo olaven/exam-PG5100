@@ -40,6 +40,18 @@
 
             <c:choose>
                 <c:when test="${rankController.hasRanked(item.id)}">
+
+                    <h:form id="removeRankForm" prependId="false">
+                        <input type="hidden" name="itemId" value="#{param['itemId']}" />
+                        <c:set var="itemId" value="#{param['itemId']}"/>
+                        <h:commandButton
+                                id="removeRankButton"
+                                action="#{rankController.removeRank(itemId)}"
+                                value="Remove your rank"
+                                class="btn btn-danger"/>
+                    </h:form>
+                    <br/>
+
                     <h:form id="commentForm" prependId="false">
                         <input type="hidden" name="itemId" value="#{param['itemId']}" />
                         <c:set var="itemId" value="#{param['itemId']}"/>

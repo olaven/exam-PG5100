@@ -282,6 +282,22 @@ public abstract class SeleniumTestBase {
     }
 
     @Test
+    public void testCanRemoveRank() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.goToItemPage(0);
+        item.setScore(3);
+
+        //i.e. the users ranking is registered
+        assertTrue(item.commentFormIsDisplayed());
+
+        item.deleteRank();
+
+        //i.e. the rank is no longer in db
+        assertFalse(item.commentFormIsDisplayed());
+    }
+
+    @Test
     public void testCommentGetsAdded() {
 
         home = createNewUser(getUniqueId(), "given", "family", "12345");
