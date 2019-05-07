@@ -41,12 +41,19 @@ is a later requirement.
 
 ## Extras
 * The app has support for admin-users 
-* The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com) 
-* The app is running on Travis 
-* Selenium-tests can be run in Docker using `SeleniumDockerIT`
-* I am using bootstrap for some CSS-styles 
+* Ad admin-user may add new items. This is documented in `SeleniumTestBase`, `testCanAddItem`
+* The app is running on Travis. The travis-page is private, as this is an exam. However, the link-image in 
+the title is hopefully evidence enough.
+* The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com)
+* I have used Docker and Docker-Compose to run the project in production mode. To start this up, 
+run the following in the root-directory: `mvn clean package && docker-compose up`
+* I am using bootstrap for some CSS-styles
+ 
+* Selenium-tests can be run in Docker using `SeleniumDockerIT` 
 
 
+
+TODO: clean up this part of readme: 
 ## Notes 
 To build and run production-version: 
     'mvn clean package && docker-compose up'

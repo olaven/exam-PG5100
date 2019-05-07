@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -26,8 +27,8 @@ import java.nio.file.Paths;
 NOTE: This file is copied from:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumDockerIT.java
 */
-/*
 
+@ActiveProfiles("dockertest") // kjører fint (men ingen items) når jeg ikke har test. Da legges ikke demo-data til. legger jeg til demo-data, får ikke h2 kobblet seg opp. Som er greit, fordi den forsøker å gå på postgres... LAG En test-docker?
 @ContextConfiguration(initializers = SeleniumDockerIT.DockerInitializer.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -113,4 +114,4 @@ public class SeleniumDockerIT extends SeleniumTestBase {
         return 8080;
     }
 }
-*/
+

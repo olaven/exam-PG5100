@@ -3,10 +3,9 @@ package kristiania.enterprise.exam.frontend.selenium;
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
-import kristiania.enterprise.exam.frontend.selenium.po.IndexPO;
-import kristiania.enterprise.exam.frontend.selenium.po.ItemPO;
-import kristiania.enterprise.exam.frontend.selenium.po.ProfilePO;
-import kristiania.enterprise.exam.frontend.selenium.po.SignUpPO;
+import kristiania.enterprise.exam.backend.services.UserService;
+import kristiania.enterprise.exam.frontend.selenium.po.*;
+import org.h2.index.Index;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +26,8 @@ public abstract class SeleniumTestBase {
 
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private UserService userService;
 
     protected abstract WebDriver getDriver();
 
@@ -48,12 +49,34 @@ public abstract class SeleniumTestBase {
 
         home.toStartingPage();
 
-        SignUpPO signUpPO = home.toSignUp();
+        SignUpPO signup = home.toSignUp();
 
-        IndexPO indexPO = signUpPO.createUser(email, givenName, familyName, password);
-        assertNotNull(indexPO);
+        IndexPO index = signup.createUser(email, givenName, familyName, password);
+        assertNotNull(index);
 
-        return indexPO;
+        return index;
+    }
+
+    private IndexPO loginUser(String email, String password) {
+
+        home.toStartingPage();
+
+        LoginPO login = home.toLogin();
+        IndexPO index = login.loginUser(email, password);
+
+        assertNotNull(index);
+        return index;
+    }
+
+    //NOTE: DB is cleaned after tests
+    private IndexPO createAdminUser() {
+
+        String email = getUniqueId();
+        String password = "some-admin-password";
+
+        userService.createUser(email, "admin-given", "admin-family", password, "ADMIN");
+
+        return loginUser(email, password);
     }
 
 
@@ -367,5 +390,47 @@ public abstract class SeleniumTestBase {
 
         ProfilePO profile = home.toProfile();
         assertEquals(n, profile.getDisplayedRankCount());
+    }
+
+
+    // Admin page:
+    @Test
+    public void testCanAddItem() {
+
+        int before = itemService
+                .getItemsSortedByAverageScore(null)
+                .size();
+
+        home = createAdminUser();
+        AdminPO admin = home.goToAdmin();
+
+        admin.addItem("new title", "new content", Category.BLUE);
+
+        int after = itemService
+                .getItemsSortedByAverageScore(null)
+                .size();
+
+        assertEquals(before + 1, after);
+    }
+
+    @Test
+    public void testErrorDisplayedIfMissingTitle() {
+
+        home = createAdminUser();
+        AdminPO admin = home.goToAdmin();
+        admin.addItem("", "new content", Category.BLUE);
+
+        assertTrue(admin.addItemErrorDisplayed());
+    }
+
+    @Test
+    public void testErrorDisplayedIfMissingDescription() {
+
+        home = createAdminUser();
+        AdminPO admin = home.goToAdmin();
+
+        admin.addItem("title", "", Category.BLUE);
+
+        assertTrue(admin.addItemErrorDisplayed());
     }
 }

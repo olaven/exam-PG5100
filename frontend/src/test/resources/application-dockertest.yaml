@@ -1,0 +1,22 @@
+jsf:
+  projectStage: Development
+
+# This is meant to be run with docker image in root.
+
+spring:
+  datasource:
+    username: "postgres"
+    password: "postgres"
+    url: "jdbc:postgresql://db:5432/postgres"
+    driver-class-name: "org.postgresql.Driver"
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+
+

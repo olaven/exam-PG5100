@@ -88,19 +88,4 @@ public class ItemPO extends LayoutPO {
 
         return elementIsOnPage("commentError");
     }
-
-    private boolean elementIsOnPage(String id) {
-
-        try {
-
-            getDriver()
-                    .findElement(By.id(id));
-
-            return true;
-        } catch (NoSuchElementException e) {
-
-            return false;
-        }
-    }
-
 }

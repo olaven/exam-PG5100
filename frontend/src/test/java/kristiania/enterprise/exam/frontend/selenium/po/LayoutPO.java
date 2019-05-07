@@ -1,6 +1,7 @@
 package kristiania.enterprise.exam.frontend.selenium.po;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +21,32 @@ public abstract class LayoutPO extends PageObject {
         super(other);
     }
 
-    public SignUpPO toSignUp(){
+
+    public IndexPO doLogout() {
+
+        clickAndWait("logoutBtnId");
+
+        IndexPO po = new IndexPO(this);
+        assertTrue(po.isOnPage());
+
+        return po;
+    }
+
+    public boolean isLoggedIn() {
+
+        return getDriver().findElements(By.id("logoutBtnId")).size() > 0 &&
+                getDriver().findElements((By.id("signupBtnId"))).isEmpty();
+    }
+
+    public SignUpPO toSignUp() {
 
         SignUpPO po = goToPage("signupBtnId", new SignUpPO(this));
+        return po;
+    }
+
+    public LoginPO toLogin() {
+
+        LoginPO po = goToPage("loginBtnId", new LoginPO(this));
         return po;
     }
 
@@ -38,24 +62,10 @@ public abstract class LayoutPO extends PageObject {
         return po;
     }
 
+    public AdminPO goToAdmin() {
 
-    /* TODO: implement
-    public AdminPO toAdmin();*/
-
-    public IndexPO doLogout(){
-
-        clickAndWait("logoutBtnId");
-
-        IndexPO po = new IndexPO(this);
-        assertTrue(po.isOnPage());
-
+        AdminPO po = goToPage("goToAdminPageButton", new AdminPO(this));
         return po;
-    }
-
-    public boolean isLoggedIn(){
-
-        return getDriver().findElements(By.id("logoutBtnId")).size() > 0 &&
-                getDriver().findElements((By.id("signupBtnId"))).isEmpty();
     }
 
     private<T extends PageObject> T goToPage(String buttonId, T po) {
@@ -63,6 +73,20 @@ public abstract class LayoutPO extends PageObject {
         clickAndWait(buttonId);
         assertTrue(po.isOnPage());
         return po;
+    }
+
+    protected boolean elementIsOnPage(String id) {
+
+        try {
+
+            getDriver()
+                    .findElement(By.id(id));
+
+            return true;
+        } catch (NoSuchElementException e) {
+
+            return false;
+        }
     }
 }
 

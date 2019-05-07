@@ -35,8 +35,10 @@
                         action="#{adminController.addItem}"
                         value="Add item"/>
 
-                <h:outputLabel value="Title, description and category must be entered"
-                               rendered="${!empty param['error']}"/>
+                <h:outputLabel
+                        id="addItemError"
+                        value="Title, description and category must be entered"
+                        rendered="${!empty param['error']}"/>
             </h:form>
 
         </sec:authorize>
