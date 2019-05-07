@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private UserInfoController userInfoController;
+    private UserController userController;
 
     @Autowired
     private CommentService commentService;
@@ -41,7 +41,7 @@ public class CommentController {
 
     public String createNewComment(Long itemId) {
 
-        String userEmail = userInfoController.getEmail();
+        String userEmail = userController.getEmail();
         String url = String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
         if(currentTitle.isEmpty() || currentContent.isEmpty()) {
             return url + "&error=true";

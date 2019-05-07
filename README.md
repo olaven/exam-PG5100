@@ -3,7 +3,7 @@
 
 ## General notes
 * I have configured a maven-plugin to build a Docker-image in the "package"-phase. Will be visible in "verify"-logging.  
-* `mvn clean verify` will run frontend-tests locally _and_ in docker. Normally, this is would usually be unnecessary, 
+* `mvn clean verify` will run frontend-tests locally _and_ in docker. Normally, this is would be unnecessary, 
 but I am leaving it that way because this is an exam, and I want to show as much as possible.  
 
 ## Entry points 
@@ -21,7 +21,7 @@ An admin-user is also added, both in dev- and prod. mode.
 * username: admin@mail.com
 * password: admin  
 
-Several other users and items are added in test-mode. The full list is 
+Several other users and items are added in test-mode. Full details are
 available in `DefaultDataInitializer.java` 
 
 ## Tests from R4
@@ -43,9 +43,10 @@ is a later requirement.
 
 ## Extras
 * The app has support for admin-users 
-* An admin-user may add new items. This is documented in `SeleniumTestBase`, `testCanAddItem`
-* An admin-user may remove items. This is documented in `SeleniumTestBase`, `testCanRemoveItem`
-* A user may delete their ranking on an item. This is documented in `SeleniumTestBase`, `testCanRemoveRank`
+* An admin-user may add new items. This is documented in `testCanAddItem`
+* An admin-user may remove items. This is documented in `testCanRemoveItem`
+* A user may delete their ranking on an item. This is documented in `testCanRemoveRank`
+* A user may updated his/her name on the profile page. This is documented in `testCanUpdateUserDetails`
 * The app is running on Travis. The travis-page is private, as this is an exam. However, the image-link in 
 the title of this document is hopefully evidence enough.
 * I have used Docker and Docker-Compose to run the project in production mode. To start this up, 

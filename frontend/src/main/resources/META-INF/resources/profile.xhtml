@@ -11,15 +11,38 @@
             <h2>Profile page</h2>
 
             <h:outputLabel value="email:"/>
-            <h:outputText id="profileEmail" value="#{userInfoController.email}"/>
+            <h:outputText id="profileEmail" value="#{userController.email}"/>
             <br/>
 
             <h:outputLabel value="full name:"/>
-            <h:outputText id="profileFullName" value="#{userInfoController.fullName}"/>
+            <h:outputText id="profileFullName" value="#{userController.fullName}"/>
             <br/>
 
             <h:outputLabel value="Rank-count:"/>
-            <h:outputText id="profileRankCount" value="#{userInfoController.rankCount}"/>
+            <h:outputText id="profileRankCount" value="#{userController.rankCount}"/>
+
+            <h3>Update user details:</h3>
+            <h:form prependId="false">
+
+                <h:outputLabel value="Given name:"/>
+                <h:inputText id="profileInputGivenName" value="#{userController.currentGivenName}"/>
+                <br/>
+
+                <h:outputLabel value="Family name:"/>
+                <h:inputText id="profileInputFamilyName" value="#{userController.currentFamilyName}"/>
+                <br/>
+
+                <h:commandButton
+                        id="profileUpdateUserButton"
+                        action="#{userController.update}"
+                        value="Update user details"
+                        class="btn btn-secondary"/>
+
+                <h:outputLabel
+                        id="updateUserError"
+                        value="You have to enter both given- and family name."
+                        rendered="${!empty param['error']}"/>
+            </h:form>
             <br/>
 
         </sec:authorize>

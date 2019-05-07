@@ -5,10 +5,12 @@ import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
 import kristiania.enterprise.exam.backend.services.UserService;
 import kristiania.enterprise.exam.frontend.selenium.po.*;
+import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -407,6 +409,47 @@ public abstract class SeleniumTestBase {
         assertEquals(n, profile.getDisplayedRankCount());
     }
 
+    @Test
+    public void testCanUpdateUserDetails() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+
+        String updatedGivenName = "updated given";
+        String updatedFamilyName = "updated family";
+
+        String fullName = profile.getDisplayedFullName();
+        assertFalse(fullName.contains(updatedGivenName));
+        assertFalse(fullName.contains(updatedFamilyName));
+
+        profile.updateUserDetails(updatedGivenName, updatedFamilyName);
+
+        fullName = profile.getDisplayedFullName();
+        assertTrue(fullName.contains(updatedGivenName));
+        assertTrue(fullName.contains(updatedFamilyName));
+    }
+
+    @Test
+    public void testErrorOnNoGivenName() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+
+        assertFalse(profile.errorDisplayed());
+        profile.updateUserDetails("", "updated family");
+        assertTrue(profile.errorDisplayed());
+    }
+
+    @Test
+    public void testErrorOnNoFamilyName() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+
+        assertFalse(profile.errorDisplayed());
+        profile.updateUserDetails("updated given", "");
+        assertTrue(profile.errorDisplayed());
+    }
 
     // Admin page:
     @Test

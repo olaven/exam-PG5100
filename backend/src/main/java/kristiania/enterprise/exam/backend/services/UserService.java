@@ -65,4 +65,13 @@ public class UserService {
                 .getRanks()
                 .size();
     }
+
+    public void updateUser(String email, String givenName, String familyName) {
+
+        UserEntity user = getUser(email);
+        user.setGivenName(givenName);
+        user.setFamilyName(familyName);
+
+        entityManager.merge(user);
+    }
 }

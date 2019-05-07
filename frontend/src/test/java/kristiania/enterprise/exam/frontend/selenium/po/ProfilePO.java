@@ -22,6 +22,20 @@ public class ProfilePO extends LayoutPO {
         return getText("profileFullName");
     }
 
+    public void updateUserDetails(String givenName, String familyName) {
+
+        setText("profileInputGivenName", givenName);
+        setText("profileInputFamilyName", familyName);
+
+        clickAndWait("profileUpdateUserButton");
+    }
+
+    public boolean errorDisplayed() {
+
+        return elementIsOnPage("updateUserError");
+    }
+
+
     public int getDisplayedRankCount() {
 
         String displayedRankCount = getText("profileRankCount");

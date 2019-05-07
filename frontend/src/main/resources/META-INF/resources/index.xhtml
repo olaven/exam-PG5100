@@ -7,7 +7,7 @@
     <ui:define name="content">
 
         <sec:authorize access="isAuthenticated()">
-            <h2>Welcome, #{userInfoController.fullName}</h2>
+            <h2>Welcome, #{userController.fullName}</h2>
         </sec:authorize>
 
         <div>

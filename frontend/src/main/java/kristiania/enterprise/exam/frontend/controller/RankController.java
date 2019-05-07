@@ -23,26 +23,26 @@ public class RankController implements Serializable {
     private ItemService itemService;
 
     @Autowired
-    private UserInfoController userInfoController;
+    private UserController userController;
 
 
 
     public boolean hasRanked(Long itemId) {
 
-        String userEmail = userInfoController.getEmail();
+        String userEmail = userController.getEmail();
         return rankService.hasRanked(userEmail, itemId);
     }
 
     public String removeRank(Long itemId) {
 
-        String userEmail = userInfoController.getEmail();
+        String userEmail = userController.getEmail();
         rankService.removeRank(userEmail, itemId);
         return String.format("/item.jsf?itemId=%d&faces-redirect=true", itemId);
     }
 
     public String setNewScore(int score, Long itemId) {
 
-        String userEmail = userInfoController.getEmail();
+        String userEmail = userController.getEmail();
 
         UserEntity user = userService.getUser(userEmail);
         Item item = itemService.getItem(itemId);
@@ -63,7 +63,7 @@ public class RankController implements Serializable {
 
     public int getCurrentScore(Long itemId) {
 
-        String userEmail = userInfoController.getEmail();
+        String userEmail = userController.getEmail();
         return rankService.getCurrentScore(itemId, userEmail);
     }
 

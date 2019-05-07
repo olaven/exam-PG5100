@@ -16,10 +16,13 @@ NOTE: This file is adapted from:
 
 @Named
 @RequestScoped
-public class UserInfoController {
+public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private String currentGivenName;
+    private String currentFamilyName;
 
     public String getEmail(){
         //NOTE: username is an email in application-logic
@@ -43,5 +46,34 @@ public class UserInfoController {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
+    }
+
+    public String update() {
+
+        String url = "/profile.jsf?faces-redirect=true";
+        if (currentGivenName.isEmpty() || currentFamilyName.isEmpty()) {
+            return url + "&error=true";
+        }
+
+        String email = getEmail();
+        userService.updateUser(email, currentGivenName, currentFamilyName);
+
+        return url;
+    }
+
+    public String getCurrentGivenName() {
+        return currentGivenName;
+    }
+
+    public void setCurrentGivenName(String currentGivenName) {
+        this.currentGivenName = currentGivenName;
+    }
+
+    public String getCurrentFamilyName() {
+        return currentFamilyName;
+    }
+
+    public void setCurrentFamilyName(String currentFamilyName) {
+        this.currentFamilyName = currentFamilyName;
     }
 }
