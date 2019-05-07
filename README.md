@@ -1,6 +1,12 @@
 # Enterprise Exam  
 [![Build Status](https://travis-ci.com/olaven/exam-PG5100.svg?token=zTzVh5wrqM89cpyf9qVd&branch=master)](https://travis-ci.com/olaven/exam-PG5100)
 
+## Application topic 
+This application is a site where users can rank cards in a card-game - the made-up game "GwentStone". Each card has a title and a description. 
+Users may rank them, and leave small comments about the rank they gave. Cards are (in my application) administrated 
+by admin-users. Parts of the site is available to both registered users and non-users. 
+Only users are able to contribute (i.e. vote/rank). 
+
 ## General notes
 * I have configured a maven-plugin to build a Docker-image in the "package"-phase. Will be visible in "verify"-logging.  
 * `mvn clean verify` will run frontend-tests locally _and_ in docker. Normally, this is would be unnecessary, 
