@@ -13,9 +13,9 @@
         <div>
             <c:set var="categories" value="${itemController.allCategories}"/>
 
-            <h:form>
-                <h:selectOneMenu id="locationSelect" value="#{itemController.selectedCategory}">
-                    <f:selectItem itemLabel="Select a location..." />
+            <h:form prependId="false">
+                <h:selectOneMenu id="categorySelect" value="#{itemController.selectedCategory}">
+                    <f:selectItem itemLabel="Select a category..." />
                     <f:selectItems value="#{categories}" var="category" itemLabel="#{category}" itemValue="#{category}"/>
                 </h:selectOneMenu>
                 <h:commandButton id="doFilter" value="Filter" action="#{itemController.filterItems}"/> <!-- was p:commandBUtton. May be relevante -->

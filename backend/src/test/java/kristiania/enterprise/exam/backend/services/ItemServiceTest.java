@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemServiceTest extends ServiceTestBase {
 
     @Test
-    public void testCanGetItemsSortedByRank() {
+    public void testCanGetItemsSortedByAverageScore() {
 
         Item popular = itemService.getItem(createTestItem());
         Item moderate = itemService.getItem(createTestItem());
@@ -37,7 +37,7 @@ class ItemServiceTest extends ServiceTestBase {
             rankService.rankItem(moderate, user, 3);
         }
 
-        List<Item> items = itemService.getItemsSortedByScore(null);
+        List<Item> items = itemService.getItemsSortedByAverageScore(null);
 
         assertEquals(3, items.size());
         assertEquals(popular.getId(), items.get(0).getId());
@@ -59,10 +59,10 @@ class ItemServiceTest extends ServiceTestBase {
 
 
 
-        List<Item> allItems = itemService.getItemsSortedByScore(null);
+        List<Item> allItems = itemService.getItemsSortedByAverageScore(null);
         assertEquals(3, allItems.size());
 
-        List<Item> filtered = itemService.getItemsSortedByScore(Category.BLUE);
+        List<Item> filtered = itemService.getItemsSortedByAverageScore(Category.BLUE);
         assertEquals(2, filtered.size());
         filtered.forEach(item -> assertEquals(Category.BLUE, item.getCategory()));
     }

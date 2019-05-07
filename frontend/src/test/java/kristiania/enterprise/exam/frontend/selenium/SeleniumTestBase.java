@@ -1,15 +1,21 @@
 package kristiania.enterprise.exam.frontend.selenium;
 
+import kristiania.enterprise.exam.backend.Category;
+import kristiania.enterprise.exam.backend.entity.Item;
+import kristiania.enterprise.exam.backend.services.ItemService;
 import kristiania.enterprise.exam.frontend.selenium.po.IndexPO;
 import kristiania.enterprise.exam.frontend.selenium.po.ItemPO;
 import kristiania.enterprise.exam.frontend.selenium.po.SignUpPO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static kristiania.enterprise.exam.frontend.selenium.po.PageObject.getUniqueId;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
@@ -19,6 +25,9 @@ NOTE: Parts of this file is adapted from:
 
 public abstract class SeleniumTestBase {
 
+
+    @Autowired
+    private ItemService itemService;
 
     protected abstract WebDriver getDriver();
 
@@ -84,6 +93,51 @@ public abstract class SeleniumTestBase {
 
         assertFalse(home.isLoggedIn());
         assertFalse(home.getDriver().getPageSource().contains(email));
+    }
+
+    // Index/Home tests
+    @Test
+    public void testItemsAreDisplayedWhenLoggedOut() {
+
+        assertFalse(home.isLoggedIn());
+        List<Item> allItems = itemService.getItemsSortedByAverageScore(null);
+
+        boolean allDisplayed = home.displayedItemsMatches(allItems);
+        assertTrue(allDisplayed);
+    }
+
+    @Test
+    public void testItemsAreDisplayedWhenLoggedIn() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "1234");
+        List<Item> allItems = itemService.getItemsSortedByAverageScore(null);
+
+        boolean allDisplayed = home.displayedItemsMatches(allItems);
+        assertTrue(allDisplayed);
+    }
+
+    @Test
+    public void testItemsAreSorted() {
+
+        //NOTE: Service-items being sorted is tested in ItemServiceTest.java
+        home = createNewUser(getUniqueId(), "given", "family", "1234");
+        List<Item> allItems = itemService.getItemsSortedByAverageScore(null);
+
+        boolean sorted = home.itemsInSameOrderAs(allItems);
+        assertTrue(sorted);
+    }
+
+    @Test
+    public void testFilteringByCategories() {
+
+        for(Category category: Category.values()) {
+
+            List<Item> filteredItems = itemService.getItemsSortedByAverageScore(category);
+
+            home.selectCategory(category);
+            boolean onlyFilteredDisplayed = home.displayedItemsMatches(filteredItems);
+            assertTrue(onlyFilteredDisplayed);
+        }
     }
 
 

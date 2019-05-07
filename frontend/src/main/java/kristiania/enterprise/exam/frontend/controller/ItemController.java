@@ -24,7 +24,7 @@ public class ItemController implements Serializable {
     @PostConstruct
     private void init() {
 
-        homePageItems = itemService.getItemsSortedByScore(null);
+        homePageItems = itemService.getItemsSortedByAverageScore(null);
     }
 
 
@@ -55,9 +55,9 @@ public class ItemController implements Serializable {
 
         // i.e. some category was chosen
         if (!selectedCategory.isEmpty()) {
-            homePageItems = itemService.getItemsSortedByScore(Category.valueOf(selectedCategory));
+            homePageItems = itemService.getItemsSortedByAverageScore(Category.valueOf(selectedCategory));
         } else {
-            homePageItems = itemService.getItemsSortedByScore(null);
+            homePageItems = itemService.getItemsSortedByAverageScore(null);
         }
 
         return "/search.jsf?faces-redirect=true";

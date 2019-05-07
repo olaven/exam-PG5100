@@ -41,7 +41,7 @@ public class ItemService {
         return entityManager.find(Item.class, id);
     }
 
-    public List<Item> getItemsSortedByScore(Category category) {
+    public List<Item> getItemsSortedByAverageScore(Category category) {
 
         return getAllItems().stream()
                 .filter(item -> {
