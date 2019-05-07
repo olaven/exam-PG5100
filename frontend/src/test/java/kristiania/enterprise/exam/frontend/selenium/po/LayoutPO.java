@@ -22,26 +22,24 @@ public abstract class LayoutPO extends PageObject {
 
     public SignUpPO toSignUp(){
 
-        clickAndWait("signupBtnId");
-
-        SignUpPO po = new SignUpPO(this);
-
-        assertTrue(po.isOnPage());
-
+        SignUpPO po = goToPage("signupBtnId", new SignUpPO(this));
         return po;
     }
 
     public IndexPO toHome() {
 
-        clickAndWait("goHomeButton");
-        IndexPO po = new IndexPO(this);
-
-        assertTrue(po.isOnPage());
+        IndexPO po = goToPage("goHomeButton", new IndexPO(this));
         return po;
     }
 
+    public ProfilePO toProfile() {
+
+        ProfilePO po = goToPage("goToProfilePageButton", new ProfilePO(this));
+        return po;
+    }
+
+
     /* TODO: implement
-    public ProfilePO toProfile();
     public AdminPO toAdmin();*/
 
     public IndexPO doLogout(){
@@ -58,6 +56,13 @@ public abstract class LayoutPO extends PageObject {
 
         return getDriver().findElements(By.id("logoutBtnId")).size() > 0 &&
                 getDriver().findElements((By.id("signupBtnId"))).isEmpty();
+    }
+
+    private<T extends PageObject> T goToPage(String buttonId, T po) {
+
+        clickAndWait(buttonId);
+        assertTrue(po.isOnPage());
+        return po;
     }
 }
 

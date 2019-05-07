@@ -5,14 +5,13 @@ import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.services.ItemService;
 import kristiania.enterprise.exam.frontend.selenium.po.IndexPO;
 import kristiania.enterprise.exam.frontend.selenium.po.ItemPO;
+import kristiania.enterprise.exam.frontend.selenium.po.ProfilePO;
 import kristiania.enterprise.exam.frontend.selenium.po.SignUpPO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -117,14 +116,22 @@ public abstract class SeleniumTestBase {
     }
 
     @Test
-    public void testItemsAreSorted() {
+    public void testItemsAreOrderedLikeBackend() {
 
-        //NOTE: Service-items being sorted is tested in ItemServiceTest.java
         home = createNewUser(getUniqueId(), "given", "family", "1234");
         List<Item> allItems = itemService.getItemsSortedByAverageScore(null);
 
-        boolean sorted = home.itemsInSameOrderAs(allItems);
-        assertTrue(sorted);
+        boolean inSameOrder = home.itemsInSameOrderAs(allItems);
+        assertTrue(inSameOrder);
+    }
+
+    @Test
+    public void testItemsAreSortedByScoreAverage() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "1234");
+
+        boolean sortedByAverage = home.itemsSortedByScore();
+        assertTrue(sortedByAverage);
     }
 
     @Test
@@ -266,5 +273,48 @@ public abstract class SeleniumTestBase {
         double after = item.getAverageScore();
 
         assertNotEquals(before, after);
+    }
+
+    // Profile page
+    @Test
+    public void testShowsCorrectEmail() {
+
+        String email = getUniqueId();
+        home = createNewUser(email, "given", "family", "12345");
+        ProfilePO profile = home.toProfile();
+
+        assertEquals(email, profile.getDisplayedEmail());
+    }
+
+    @Test
+    public void testShowsCorrectFullName() {
+
+
+        String givenName = "given";
+        String familyName = "family";
+        String fullName = givenName + " " + familyName;
+
+        home = createNewUser(getUniqueId(), givenName, familyName, "12345");
+        ProfilePO profile = home.toProfile();
+
+        assertEquals(fullName, profile.getDisplayedFullName());
+    }
+
+    @Test
+    public void testShowsCorrectRankCount() {
+
+        int n = 3;
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+
+        //ranking n items
+        for (int i = 0; i < n; i++) {
+
+            ItemPO item = home.goToItemPage(i);
+            item.setScore(2);
+            home = item.toHome();
+        }
+
+        ProfilePO profile = home.toProfile();
+        assertEquals(n, profile.getDisplayedRankCount());
     }
 }

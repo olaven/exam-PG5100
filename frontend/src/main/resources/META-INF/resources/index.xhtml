@@ -26,7 +26,7 @@
             <div class="homeItem">
                 <h2>#{item.title}</h2>
                 <h:outputText value="#{item.description}"/> <br/>
-                <h:outputText value="#{rankController.getGetAverageScoreOf(item.id)}"/> <br/>
+                <h:outputText class="homeAverageScore" value="#{rankController.getGetAverageScoreOf(item.id)}"/> <br/>
                 <h:form>
                     <h:commandButton
                             value="More details"

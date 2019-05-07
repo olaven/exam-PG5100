@@ -11,15 +11,15 @@
             <h2>Profile page</h2>
 
             <h:outputLabel value="email:"/>
-            <h:outputText value="#{userInfoController.email}"/>
+            <h:outputText id="profileEmail" value="#{userInfoController.email}"/>
             <br/>
 
             <h:outputLabel value="full name:"/>
-            <h:outputText value="#{userInfoController.fullName}"/>
+            <h:outputText id="profileFullName" value="#{userInfoController.fullName}"/>
             <br/>
 
             <h:outputLabel value="Rank-count:"/>
-            <h:outputText value="#{userInfoController.rankCount}"/>
+            <h:outputText id="profileRankCount" value="#{userInfoController.rankCount}"/>
             <br/>
 
         </sec:authorize>

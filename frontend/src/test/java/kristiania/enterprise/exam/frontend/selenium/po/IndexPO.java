@@ -2,14 +2,12 @@ package kristiania.enterprise.exam.frontend.selenium.po;
 
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
-import kristiania.enterprise.exam.backend.services.ItemService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.testcontainers.shaded.org.apache.commons.lang.NotImplementedException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,6 +78,15 @@ public class IndexPO extends LayoutPO {
         return true;
     }
 
+    public boolean itemsSortedByScore() {
+
+        List<Double> scores = extractItemScores();
+        return scores.stream()
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList())
+                .equals(scores);
+    }
+
     public void selectCategory(Category category) {
 
         Select select = new Select(getDriver().findElement(By.id("categorySelect")));
@@ -97,4 +104,13 @@ public class IndexPO extends LayoutPO {
                 .collect(Collectors.toList());
     }
 
+    private List<Double> extractItemScores() {
+
+        return getDriver()
+                .findElements(By.xpath("//span[@class='homeAverageScore']"))
+                .stream()
+                .map(WebElement::getText)
+                .map(Double::valueOf)
+                .collect(Collectors.toList());
+    }
 }
