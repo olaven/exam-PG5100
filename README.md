@@ -61,4 +61,3 @@ To build and run production-version:
     'mvn clean package && docker-compose up'
 * The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com)
 To deploy new version: "cd frontend && mvn clean package heroku:deploy -Dheroku.logProgress=true"
-To check dependencies: "mvn verify -P dependency-check"

@@ -28,7 +28,7 @@ NOTE: This file is copied from:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumDockerIT.java
 */
 
-@ActiveProfiles("dockertest") // kjører fint (men ingen items) når jeg ikke har test. Da legges ikke demo-data til. legger jeg til demo-data, får ikke h2 kobblet seg opp. Som er greit, fordi den forsøker å gå på postgres... LAG En test-docker?
+@ActiveProfiles("dockertest")
 @ContextConfiguration(initializers = SeleniumDockerIT.DockerInitializer.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)

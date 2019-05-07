@@ -38,7 +38,6 @@
         <version.testcontainers>1.10.1</version.testcontainers>
         <version.selenium>3.141.59</version.selenium>
         <version.jacoco>0.7.9</version.jacoco>
-        <version.owasp>3.1.1</version.owasp>
         <version.heroku>2.0.2</version.heroku>
         <!--<version.junit.surefire.provider>1.2.0-M1</version.junit.surefire.provider>-->
     </properties>
@@ -310,19 +309,6 @@
                     <groupId>com.heroku.sdk</groupId>
                     <artifactId>heroku-maven-plugin</artifactId>
                     <version>${version.heroku}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.owasp</groupId>
-                    <artifactId>dependency-check-maven</artifactId>
-                    <version>${version.owasp}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
