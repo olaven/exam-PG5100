@@ -18,7 +18,6 @@ but I am leaving it that way because this is an exam, and I want to show as much
 * For running frontend-test with docker: `SeleniumDockerIT.java`
 
 ## Users
-
 When testing the application, the following user is recommended: 
 * username: dev@mail.com   
 * password: dev
@@ -46,6 +45,14 @@ said that the user should be able to update his/her rank. As I see it, these
 requirements are conflicting. My assumption is that the user should 
 be able to update their ranking-score / comment. I deem this to be more important because it 
 is a later requirement.
+4. The assignments says that the backend has to be configured with `ddl-auto: validate`. I have done this. 
+However, when turning "validate" on in the local frontend-tests (i.e. those run i local chrome), I 
+got a lot of conflicts with postgres-syntax when setting the same thing up for Docker. `application-test.yaml`
+is therefore still on "create-drop". 
+My assumption is that this is fine because: 
+    * "validate" is a requirement on the backend (R1)
+    * frontend-tests run in docker (`application-dockertest.yaml`) are set to "validate". This means that all tests (both frontend and backend) 
+    are run with "validate" eventually anyways.  
 
 ## Extras
 * The app has support for admin-users 
@@ -66,9 +73,3 @@ run the following in the root-directory: `mvn clean package && docker-compose up
 
 
 
-TODO: clean up this part of readme: 
-## Notes 
-To build and run production-version: 
-    'mvn clean package && docker-compose up'
-* The app is deployed to [Heroku](https://enterprise-exam.herokuapp.com)
-To deploy new version: "cd frontend && mvn clean package heroku:deploy -Dheroku.logProgress=true"

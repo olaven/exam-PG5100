@@ -10,9 +10,9 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     database: h2
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: create-drop # validate
+      ddl-auto: create-drop # see assumption #4 in README.md
 
 
 

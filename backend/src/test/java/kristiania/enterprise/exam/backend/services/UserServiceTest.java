@@ -12,7 +12,61 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class UserServiceTest extends ServiceTestBase {
 
-    //TODO: tests on all methods
+    @Test
+    public void testCanCreateUser() {
+
+        String email = "test@mail.com";
+        String givenName = "test user given name";
+        String familyName = "test user family name";
+        String password = "super-secret-password";
+
+        userService.createUser(email, givenName, familyName, password);
+        UserEntity user = userService.getUser(email, false);
+
+        assertEquals(email, user.getEmail());
+        assertEquals(givenName, user.getGivenName());
+        assertEquals(familyName, user.getFamilyName());
+    }
+
+    @Test
+    public void testDefaultUserHasUserRole() {
+
+        UserEntity user = userService.getUser(createTestUser(), false);
+        assertTrue(user.getRoles().contains("USER"));
+        assertFalse(user.getRoles().contains("ADMIN"));
+    }
+
+    @Test
+    public void testCanCreateAdminUser() {
+
+        String email = "admin@test.com";
+        userService.createUser(email, "admin given", "admin family", "password", "ADMIN");
+        UserEntity user = userService.getUser(email, false);
+
+        assertTrue(user.getRoles().contains("ADMIN"));
+    }
+
+
+    @Test
+    public void testInvalidEmailThrowsException() {
+
+        String invalidEmail = "NOT_AN_EMAIL";
+        assertThrows(Exception.class, () -> {
+            userService.createUser(invalidEmail, "admin given", "admin family", "password", "USER");
+        });
+    }
+
+    @Test
+    public void testReturnsFalseOnUserCreatedTwice() {
+
+        String email = "twice@email.com";
+
+        boolean createdFirst = userService.createUser(email, "admin given", "admin family", "password", "ADMIN");
+        boolean createdSecond = userService.createUser(email, "admin given", "admin family", "password", "ADMIN");
+
+        assertTrue(createdFirst);
+        assertFalse(createdSecond);
+    }
 
     @Test
     public void testCanUpdateUser() {

@@ -52,8 +52,6 @@ public class DefaultDataInitializer {
     }
 
     private void insertTestData() {
-
-        System.out.println("ADDING TEST DATA");
         
         // USERS
         attempt(() -> userService.createUser("dev@mail.com", "dev-given", "dev-family", "dev"));
