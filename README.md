@@ -2,12 +2,16 @@
 [![Build Status](https://travis-ci.com/olaven/exam-PG5100.svg?token=zTzVh5wrqM89cpyf9qVd&branch=master)](https://travis-ci.com/olaven/exam-PG5100)
 
 ## General notes
-* I have configured a maven-plugin to build a Docker-image in the "package"-phase. This is visible in the logging.  
+* I have configured a maven-plugin to build a Docker-image in the "package"-phase. Will be visible in "verify"-logging.  
 
 ## Entry points 
 For starting in dev mode: `LocalApplicationRunner.java`
 For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
 For running frontend-test with docker: `SeleniumDockerIT.java`
+
+## Tests from R4
+* Sorting is tested in: SeleniumTestBase line: 143
+* Filtering is tested in: SeleniumTestBase line: 153
 
 ## Assumptions 
 1. The assignment mentions popular card games as examples. 

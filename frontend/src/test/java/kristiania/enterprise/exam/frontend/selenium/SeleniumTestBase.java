@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
-NOTE: Parts of this file is adapted from:
+NOTE: This file is a heavily adapted version of:
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumTestBase.java
 */
 
@@ -94,6 +94,20 @@ public abstract class SeleniumTestBase {
         assertFalse(home.getDriver().getPageSource().contains(email));
     }
 
+    @Test
+    public void testErrorOnInvalidSingup() {
+
+        home.toStartingPage();
+        assertFalse(home.isLoggedIn());
+
+        String notAnEmail = "NOT_AN_EMAIL";
+        SignUpPO signUpPO = home.toSignUp();
+        signUpPO.createUser(notAnEmail, "given", "family", "password");
+
+        assertTrue(signUpPO.isOnPage());
+        assertTrue(home.getDriver().getPageSource().contains("User info and/or password are wrong."));
+    }
+
     // Index/Home tests
     @Test
     public void testItemsAreDisplayedWhenLoggedOut() {
@@ -134,6 +148,7 @@ public abstract class SeleniumTestBase {
         assertTrue(sortedByAverage);
     }
 
+
     @Test
     public void testFilteringByCategories() {
 
@@ -147,6 +162,16 @@ public abstract class SeleniumTestBase {
         }
     }
 
+    @Test
+    public void testSelectingNoCategoryGivesEveryItem() {
+
+        List<Item> expected = itemService.getItemsSortedByAverageScore(null);
+        //NOTE: not selecting a category
+        home.doFilter();
+
+        boolean allDisplayed = home.displayedItemsMatches(expected);
+        assertTrue(allDisplayed);
+    }
 
     // Item tests:
     @Test
@@ -247,6 +272,32 @@ public abstract class SeleniumTestBase {
         item.createComment("My comment", "More content in comment");
 
         assertEquals(before + 1, item.getCommentCount());
+    }
+
+    @Test
+    public void testErrorOnEmptyTitle() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.goToItemPage(0);
+        item.setScore(1);
+
+
+        assertFalse(item.commentErrorDisplayed());
+        item.createComment("", "content");
+        assertTrue(item.commentErrorDisplayed());
+    }
+
+    @Test
+    public void testErrorOnEmptyContent() {
+
+        home = createNewUser(getUniqueId(), "given", "family", "12345");
+        ItemPO item = home.goToItemPage(0);
+        item.setScore(1);
+
+
+        assertFalse(item.commentErrorDisplayed());
+        item.createComment("title", "");
+        assertTrue(item.commentErrorDisplayed());
     }
 
     @Test

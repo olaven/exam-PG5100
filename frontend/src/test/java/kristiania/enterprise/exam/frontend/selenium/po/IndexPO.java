@@ -92,6 +92,10 @@ public class IndexPO extends LayoutPO {
         Select select = new Select(getDriver().findElement(By.id("categorySelect")));
         select.selectByVisibleText(category.toString());
 
+        doFilter();
+    }
+
+    public void doFilter() {
         clickAndWait("doFilter");
     }
 
@@ -113,4 +117,5 @@ public class IndexPO extends LayoutPO {
                 .map(Double::valueOf)
                 .collect(Collectors.toList());
     }
+
 }

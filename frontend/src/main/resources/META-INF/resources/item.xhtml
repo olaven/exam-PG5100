@@ -52,8 +52,10 @@
                         <br/>
 
                         <h:commandButton id="commentFormButton" value="Create comment" action="#{commentController.createNewComment(itemId)}"/>
-                        <h:outputLabel value="Comment failed. Make sure to have content in both boxes."
-                                       rendered="${!empty param['error']}"/>
+                        <h:outputLabel
+                                    id="commentError"
+                                    value="Comment failed. Make sure to have content in both boxes."
+                                    rendered="${!empty param['error']}"/>
                     </h:form>
                 </c:when>
                 <c:otherwise>

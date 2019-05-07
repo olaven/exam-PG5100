@@ -84,6 +84,11 @@ public class ItemPO extends LayoutPO {
         return elementIsOnPage("itemComments");
     }
 
+    public boolean commentErrorDisplayed() {
+
+        return elementIsOnPage("commentError");
+    }
+
     private boolean elementIsOnPage(String id) {
 
         try {
