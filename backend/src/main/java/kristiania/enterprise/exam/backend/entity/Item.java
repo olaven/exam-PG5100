@@ -35,9 +35,6 @@ public class Item {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "rankId.item")
     private List<Rank> ranks;
 
-    @ManyToMany(mappedBy = "collection", cascade = CascadeType.REMOVE)
-    private List<UserEntity> collectors;
-
     public Item() {
     }
 
@@ -79,13 +76,5 @@ public class Item {
 
     public void setRanks(List<Rank> ranks) {
         this.ranks = ranks;
-    }
-
-    public List<UserEntity> getCollectors() {
-        return collectors;
-    }
-
-    public void setCollectors(List<UserEntity> collectors) {
-        this.collectors = collectors;
     }
 }

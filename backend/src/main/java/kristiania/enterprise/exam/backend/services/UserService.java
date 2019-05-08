@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * NOTE: This file is copied from:
@@ -124,4 +126,9 @@ public class UserService {
         entityManager.merge(user);
     }
 
+    public List<UserEntity> getAllUsers() {
+
+        Query query = entityManager.createNamedQuery(UserEntity.GET_ALL_USERS, UserEntity.class);
+        return query.getResultList();
+    }
 }

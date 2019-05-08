@@ -2,7 +2,6 @@ package kristiania.enterprise.exam.backend.services;
 
 import kristiania.enterprise.exam.backend.Category;
 import kristiania.enterprise.exam.backend.entity.Item;
-import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,11 +52,14 @@ public class ItemService {
         https://hibernate.atlassian.net/browse/HHH-6709
         */
         item.getRanks().forEach(rank -> {
+
             if(rank.getComment() != null)
                 entityManager.remove(rank.getComment());
             entityManager.remove(rank);
         });
 
+        userService.getAllUsers().forEach(user -> user.getCollection().remove(item));
+        //userService.removeItemFromAllUserCollections(item);
 
         entityManager.remove(item);
     }

@@ -1,10 +1,14 @@
 package kristiania.enterprise.exam.backend.services;
 
+import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,6 +48,26 @@ class UserServiceTest extends ServiceTestBase {
         UserEntity user = userService.getUser(email, false);
 
         assertTrue(user.getRoles().contains("ADMIN"));
+    }
+
+    @Test
+    public void testCollectionLoadedLazily() {
+
+        String email = createTestUser();
+        UserEntity user = userService.getUser(email, false);
+
+        assertThrows(LazyInitializationException.class, () -> {
+            user.getCollection().size();
+        });
+    }
+
+    @Test
+    public void testCollectionFetchedIfTrue() {
+
+        String email = createTestUser();
+        UserEntity user = userService.getUser(email, true);
+
+        assertNotNull(user.getCollection());
     }
 
 
@@ -144,5 +168,17 @@ class UserServiceTest extends ServiceTestBase {
 
         //NOTE: never added
         assertFalse(userService.hasItemInCollection(userEmail, itemId));
+    }
+
+    @Test
+    public void testCanGetAllUsers() {
+
+        int n = 5;
+
+        for (int i = 0; i < n; i++) {
+            createTestUser();
+        }
+
+        assertEquals(n, userService.getAllUsers().size());
     }
 }

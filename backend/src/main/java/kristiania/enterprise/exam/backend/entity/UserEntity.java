@@ -13,9 +13,13 @@ import java.util.Set;
 * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/18f764c3123f60339ab98167790aa223641e7559/intro/spring/security/authorization/src/main/java/org/tsdes/intro/spring/security/authorization/db/UserEntity.java
 */
 
+@NamedQueries({
+        @NamedQuery(name = UserEntity.GET_ALL_USERS, query = "select user from UserEntity user")
+})
 @Entity
 public class UserEntity {
 
+    public static final String GET_ALL_USERS = "GET_ALL_USERS";
     @Id
     @Email
     @NotNull

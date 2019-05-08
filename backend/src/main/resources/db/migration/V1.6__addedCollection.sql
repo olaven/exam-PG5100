@@ -10,11 +10,11 @@ create table comment (id bigint not null, content varchar(255), title varchar(25
 create table item (id bigint not null, category varchar(255), description varchar(355), title varchar(55), primary key (id));
 create table rank (score integer check (score<=5 AND score>=1), item_id bigint not null, user_email varchar(255) not null, primary key (item_id, user_email));
 create table user_entity (email varchar(255) not null, enabled boolean not null, family_name varchar(55), given_name varchar(55), password varchar(340), primary key (email));
-create table user_entity_collection (collectors_email varchar(255) not null, collection_id bigint not null);
+create table user_entity_collection (user_entity_email varchar(255) not null, collection_id bigint not null);
 create table user_entity_roles (user_entity_email varchar(255) not null, roles varchar(255));
 alter table comment add constraint FKkyt1nxphcmqvcjed0glntfk9l foreign key (rank_item_id, rank_user_email) references rank;
 alter table rank add constraint FKg8p3bu3hrfx6lmx13bdw7ioga foreign key (item_id) references item;
 alter table rank add constraint FK4fxcx6mer4q239mpvfx0no3pe foreign key (user_email) references user_entity;
 alter table user_entity_collection add constraint FKj78tl8soym0w3ppcuwtgir5v7 foreign key (collection_id) references item;
-alter table user_entity_collection add constraint FKstsgp53rjn8604n44cw2hmtjf foreign key (collectors_email) references user_entity;
+alter table user_entity_collection add constraint FKodu6dmdkvcwgd28g7ttvkrw3v foreign key (user_entity_email) references user_entity;
 alter table user_entity_roles add constraint FKn6hs2xulrxb06oc101wxtihwv foreign key (user_entity_email) references user_entity;

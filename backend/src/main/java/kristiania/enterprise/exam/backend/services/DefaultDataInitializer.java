@@ -197,7 +197,14 @@ public class DefaultDataInitializer {
                 "I find myself thinking about the portrayed creature all the time. I am fascinated by it"
         );
 
-        //TODO: Collections (are fetched with boolean above)
+        userService.addToCollection(john.getEmail(), elephant.getId());
+        userService.addToCollection(hans.getEmail(), sailor.getId());
+        userService.addToCollection(marcin.getEmail(), sailor.getId());
+        userService.addToCollection(john.getEmail(), hiker.getId());
+        userService.addToCollection(marcin.getEmail(), hiker.getId());
+        userService.addToCollection(mikolaj.getEmail(), hiker.getId());
+        userService.addToCollection(marcin.getEmail(), stoneGolem.getId());
+        userService.addToCollection(mikolaj.getEmail(), calmGolem.getId());
     }
 
     private<T> T attempt(Supplier<T> lambda){

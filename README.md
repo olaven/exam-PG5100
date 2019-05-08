@@ -17,6 +17,12 @@ but I am leaving it that way because this is an exam, and I want to show as much
 * For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
 * For running frontend-test with docker: `SeleniumDockerIT.java`
 
+## Test coverage 
+Checking Jacoco, I get the following result: 
+* backend: 
+* frontend:
+* total: TODO FILL INN 
+
 ## Users
 When testing the application, the following user is recommended: 
 * username: dev@mail.com   
