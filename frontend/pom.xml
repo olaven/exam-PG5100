@@ -131,21 +131,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <configuration>
-                    <appName>enterprise-exam-spring</appName>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>target/frontend-exec.jar</include>
-                    </includes>
-                    <processTypes>
-                        <web>java -Dserver.port=$PORT -jar target/frontend-exec.jar</web>
-                    </processTypes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

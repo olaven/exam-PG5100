@@ -1,14 +1,11 @@
 package kristiania.enterprise.exam.backend.services;
 
-import kristiania.enterprise.exam.backend.entity.Item;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

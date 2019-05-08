@@ -38,8 +38,6 @@
         <version.testcontainers>1.10.1</version.testcontainers>
         <version.selenium>3.141.59</version.selenium>
         <version.jacoco>0.7.9</version.jacoco>
-        <version.heroku>2.0.2</version.heroku>
-        <!--<version.junit.surefire.provider>1.2.0-M1</version.junit.surefire.provider>-->
     </properties>
 
     <modules>
@@ -303,12 +301,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.springboot}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>com.heroku.sdk</groupId>
-                    <artifactId>heroku-maven-plugin</artifactId>
-                    <version>${version.heroku}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

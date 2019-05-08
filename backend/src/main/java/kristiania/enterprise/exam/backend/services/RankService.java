@@ -5,7 +5,6 @@ import kristiania.enterprise.exam.backend.entity.Rank;
 import kristiania.enterprise.exam.backend.entity.RankId;
 import kristiania.enterprise.exam.backend.entity.UserEntity;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,6 +1,5 @@
 package kristiania.enterprise.exam.backend.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;

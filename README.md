@@ -16,12 +16,13 @@ but I am leaving it that way because this is an exam, and I want to show as much
 * For starting in dev mode: `LocalApplicationRunner.java`
 * For running frontend-test with chrome-driver: `SeleniumLocalIT.java`
 * For running frontend-test with docker: `SeleniumDockerIT.java`
+* For running production mode: in root, run `mvn clean package && docker-compose up`
 
 ## Test coverage 
-Checking Jacoco, I get the following result: 
-* backend: 
-* frontend:
-* total: TODO FILL INN 
+Checking the Jacoco-report, I get the following result: 
+* backend: 98%
+* frontend: 97%
+* total: 98% 
 
 ## Users
 When testing the application, the following user is recommended: 
