@@ -70,7 +70,7 @@ My assumption is that this is fine because:
 * A user may updated his/her name on the profile page. This is documented in `testCanUpdateUserDetails`
 * A user may keep track of a personal collection of cards
     * add to collection: `testCanAddToCollection`
-    * remove from collection from profile-page: `testCanRemoveFromCollection`
+    * remove from collection from profile-page: `testCanRemoveFromCollection` (`SeleniumTestBase`)
     * view collection on profile-page: `testProfileDisplaysCollection`
 * The app is running on Travis. The travis-page is private, as this is an exam. However, the image-link in 
 the title of this document is hopefully evidence enough.
